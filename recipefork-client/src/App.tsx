@@ -1,23 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from "./resource/recipeFork.png"
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <img src={logo}/>
+      <form>
+        <label>emails</label>
+        <input
+          type="text" />
+        <label>password</label>
+        <input
+          type="password" />
+      </form>
+      <a>Forgot password</a>
+      <button>Login</button>
+      Not a member? <a>Sign up</a>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Recipes
+        Activity
       </header>
     </div>
   );
