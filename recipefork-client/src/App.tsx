@@ -15,14 +15,17 @@ function App() {
       <img src={logo} />
       <h1>RecipeFork</h1>
 
-      <Login/>
-      <CreateAccnt/>
-      <ResetPassword/>
+      <HomePage/>
+      <UserPage/>
     </div>
   );
 }
 
 export default App;
+
+/*<Login/>
+      <CreateAccnt/>
+      <ResetPassword/>*/
 
 /*
       <img src={k} />
@@ -31,7 +34,6 @@ export default App;
         <Route path="/recipeFork/login" exact component={Login} />
         <Route path="/recipeFork/forgotPassword" exact component={ResetPassword} />
         <Route path="/recipeFork/home" exact component={HomePage} />
-        <Route path="/recipeFork/home" exact component={HomePage} />
         <Route path="/recipeFork/userPage" exact component={UserPage} />
-        <Route path="/recipeFork/userPage" exact component={RecipePage} />
+        <Route path="/recipeFork/recipePage" exact component={RecipePage} />
       </div>*/
