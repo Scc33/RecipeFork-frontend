@@ -12,28 +12,28 @@ import RecipePage from './recipePage';
 function App() {
   return (
     <div className="App">
-      <img src={logo}/>
+      <img src={logo} />
       <h1>RecipeFork</h1>
-      <Login/>
-
-      <img src={k}/>
-      <h1>RecipeFork</h1>
+      
       <CreateAccnt/>
 
-      <h1>RecipeFork</h1>
-      <ResetPassword/>
-
-      <HomePage/>
-
-      <UserPage/>
-
-      <RecipePage/>
+      <img src={k} />
 
       <header className="App-header">
-        
+
       </header>
     </div>
   );
 }
 
 export default App;
+
+/*<div className="item">
+        <Route path="/recipeFork/" exact component={CreateAccnt} />
+        <Route path="/recipeFork/login" exact component={Login} />
+        <Route path="/recipeFork/forgotPassword" exact component={ResetPassword} />
+        <Route path="/recipeFork/home" exact component={HomePage} />
+        <Route path="/recipeFork/home" exact component={HomePage} />
+        <Route path="/recipeFork/userPage" exact component={UserPage} />
+        <Route path="/recipeFork/userPage" exact component={RecipePage} />
+      </div>*/
