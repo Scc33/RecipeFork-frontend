@@ -1,61 +1,33 @@
 import React from 'react';
 import logo from "./resource/recipeFork.png"
 import k from "./resource/K.png"
+import Login from "./login"
 import './App.css';
+import CreateAccnt from './createAcct';
+import ResetPassword from './resetPassword';
+import HomePage from "./homePage"
+import UserPage from './userPage';
+import RecipePage from './recipePage';
 
 function App() {
   return (
     <div className="App">
       <img src={logo}/>
       <h1>RecipeFork</h1>
-      <form>
-        <label>Email</label>
-        <input
-          type="text" />
-        <label>Password</label>
-        <input
-          type="password" />
-      </form>
-      <a>Forgot password</a>
-      <button>Login</button>
-      Not a member? <a>Sign up</a>
+      <Login/>
 
       <img src={k}/>
       <h1>RecipeFork</h1>
-      <h2>Create Account</h2>
-      <form>
-        <label>Username</label>
-        <input
-          type="text" />
-        <label>Email</label>
-        <input
-          type="text" />
-        <label>Password</label>
-        <input
-          type="password" />
-        <label>Verify Password</label>
-        <input
-          type="password" />
-      </form>
+      <CreateAccnt/>
 
       <h1>RecipeFork</h1>
-      <h2>Reset Password</h2>
-      Forgot password?
-      <form>
-      <label>Email</label>
-      <input
-        type="text" />
-      </form>
-      <button>Send Password Reset Email</button>
+      <ResetPassword/>
 
-      Recipes
-      Activity
+      <HomePage/>
 
-      Username
-      Posted Recipes
-      Forks
-      Pinned Recipes
-      Contributions
+      <UserPage/>
+
+      <RecipePage/>
 
       <header className="App-header">
         
