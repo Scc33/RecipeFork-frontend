@@ -14,21 +14,19 @@ function App() {
     <div className="App">
       <img src={logo} />
       <h1>RecipeFork</h1>
-      
+
+      <Login/>
       <CreateAccnt/>
-
-      <img src={k} />
-
-      <header className="App-header">
-
-      </header>
+      <ResetPassword/>
     </div>
   );
 }
 
 export default App;
 
-/*<div className="item">
+/*
+      <img src={k} />
+<div className="item">
         <Route path="/recipeFork/" exact component={CreateAccnt} />
         <Route path="/recipeFork/login" exact component={Login} />
         <Route path="/recipeFork/forgotPassword" exact component={ResetPassword} />

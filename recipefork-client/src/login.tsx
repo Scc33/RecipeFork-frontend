@@ -2,18 +2,25 @@ import React from 'react';
 
 class Login extends React.Component {
     render() {
-        return <div>
-            <form>
-                <label>Email</label>
-                <input
-                    type="text" />
-                <label>Password</label>
-                <input
-                    type="password" />
+        return <div className="app">
+            <h2>Login</h2>
+            <form className="vertical">
+                <div className="horizontal">
+                    <label>Email</label>
+                    <input
+                        type="text" />
+                </div>
+                <div className="horizontal">
+                    <label>Password</label>
+                    <input
+                        type="password" />
+                </div>
             </form>
-            <a>Forgot password</a>
+            <div className="horizontal">
+                Not a member? <a className="link" href="#">Sign up</a>
+                <a>Forgot password</a>
+            </div>
             <button>Login</button>
-            Not a member? <a>Sign up</a>
         </div>;
     }
 }
