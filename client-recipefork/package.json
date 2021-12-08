@@ -1,5 +1,5 @@
 {
-  "name": "recipefork-client",
+  "name": "client-recipefork",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
