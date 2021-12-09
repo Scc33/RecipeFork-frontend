@@ -51,3 +51,25 @@
   color:gray;
   background-color:gray
 }
+
+.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+.recipes {
+  min-width: 30vmin;
+}
+
+.activity {
+  min-width: 50vmin;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.full-width {
+  width: 100%;
+}
