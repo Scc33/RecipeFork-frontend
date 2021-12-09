@@ -16,10 +16,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      <img src={logo} />
-      <h1>RecipeFork</h1>
-
-      <div>
         <Route path="/recipeFork/" exact component={Login} />
         <Route path="/recipeFork/login" exact component={Login} />
         <Route path="/recipeFork/createAccount" exact component={CreateAccnt} />
@@ -27,7 +23,6 @@ function App() {
         <Route path="/recipeFork/home" exact component={HomePage} />
         <Route path="/recipeFork/userPage" exact component={UserPage} />
         <Route path="/recipeFork/recipePage" exact component={RecipePage} />
-      </div>
     </div>
   );
 }

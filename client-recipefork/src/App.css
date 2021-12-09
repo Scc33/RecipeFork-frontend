@@ -2,9 +2,14 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.profile-thumb {
+  height: 3vmin;
+  border-radius: 50%;
+}
+
+.profile-pic {
+  height: 20vmin;
+  border-radius: 50%;
 }
 
 .app {
@@ -12,7 +17,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+  margin-top: 35px;
 }
 
 .link {
@@ -30,7 +36,18 @@
   flex-direction: row;
 }
 
+.padding {
+  padding: 10px;
+}
+
 .vl {
   border-right: 3px solid #282c34;
   height: 500px;
+}
+
+.hr {
+  height:10px;
+  border-width:0;
+  color:gray;
+  background-color:gray
 }

@@ -1,39 +1,65 @@
 import React from 'react';
-import k from "./resource/K.png"
 import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import AppNavbar from './navbar';
+import AppNavbar from './navbar'
+import k from "./resource/K.png"
+import ListGroup from 'react-bootstrap/ListGroup'
 
 class UserPage extends React.Component {
     render() {
         return <div className="app vertical">
-            <AppNavbar/>
+            <AppNavbar />
             <div className="horizontal">
-                <img src={k} />
-                Search
-                Plus Button
-                UserIcon
-            </div>
-            <div className="horizontal">
-                <div className="vertical vl">
+                <div className="vertical">
+                    <img className="profile-pic" src={k} />
                     <h3>Username</h3>
-                    <h4>Posted Recipes</h4>
-                    <h4>Forks</h4>
+                    <h5>24 Posted Recipes</h5>
+                    <h5>69 Forks</h5>
                 </div>
                 <div className="vertical">
                     <h4>Pinned Recipes</h4>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="holder.js/100px180" />
-                        <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                        </Card.Body>
-                    </Card>
+                    <div className="horizontal">
+                        <a href="#">
+                            <Card style={{ margin: '1rem' }}>
+                                <Card.Body className="padding">
+                                    <Card.Img src={k} />
+                                    <Card.Title>Mac n Cheese</Card.Title>
+                                    <Card.Text>
+                                        3h20m
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </a>
+                        <a href="#">
+                            <Card style={{ margin: '1rem' }}>
+                                <Card.Body>
+                                    <Card.Img src={k} />
+                                    <Card.Title>Mac n Cheese</Card.Title>
+                                    <Card.Text>
+                                        3h20m
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </a>
+                        <a href="#">
+                            <Card style={{ margin: '1rem' }}>
+                                <Card.Body>
+                                    <Card.Img src={k} />
+                                    <Card.Title>Mac n Cheese</Card.Title>
+                                    <Card.Text>
+                                        3h20m
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </a>
+                    </div>
                     <h4>Contributions</h4>
+                    <ListGroup>
+                        <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                        <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                        <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                    </ListGroup>
                 </div>
             </div>
         </div>;
