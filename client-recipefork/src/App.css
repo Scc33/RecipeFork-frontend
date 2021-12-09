@@ -58,12 +58,24 @@
   margin: 0; /* Remove margins */
 }
 
-.recipes {
+.home-recipes {
   min-width: 30vmin;
 }
 
-.activity {
+.home-activity {
   min-width: 50vmin;
+}
+
+.recipes-title {
+  min-width: 70vmin;
+}
+
+.recipes-info {
+  min-width: 30vmin;
+}
+
+.recipes-tags {
+  max-width: 60vmax;;
 }
 
 .left-align {

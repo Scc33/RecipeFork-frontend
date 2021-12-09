@@ -13,7 +13,7 @@ class HomePage extends React.Component {
             <div className="vertical">
                 <h3 className="left-align full-width">Welcome Username</h3>
                 <div className="horizontal">
-                    <div className="vertical recipes">
+                    <div className="vertical home-recipes">
                         <h4>Recipes</h4>
                         <ListGroup variant="flush">
                             <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />Cras justo odio</ListGroup.Item>
@@ -23,7 +23,7 @@ class HomePage extends React.Component {
                             <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />Vestibulum at eros</ListGroup.Item>
                         </ListGroup>
                     </div>
-                    <div className="vertical activity">
+                    <div className="vertical home-activity">
                         <h4>Activity</h4>
                         <ul className="no-bullets">
                             <li>asdf</li>
