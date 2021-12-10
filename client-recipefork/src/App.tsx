@@ -7,6 +7,7 @@ import ResetPassword from './resetPassword';
 import HomePage from "./homePage"
 import UserPage from './userPage';
 import RecipePage from './recipePage';
+import CreateRecipePage from './createRecipePage';
 import {
   Route,
 } from "react-router-dom";
@@ -22,6 +23,7 @@ function App() {
       <Route path="/recipeFork/home" exact component={HomePage} />
       <Route path="/recipeFork/userPage" exact component={UserPage} />
       <Route path="/recipeFork/recipePage" exact component={RecipePage} />
+      <Route path="/recipeFork/createRecipePage" exact component={CreateRecipePage} />
     </div>
   );
 }
