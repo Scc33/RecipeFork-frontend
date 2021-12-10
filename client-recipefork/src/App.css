@@ -12,6 +12,12 @@
   border-radius: 50%;
 }
 
+.recipe-pic {
+  height: 20vmin;
+  width: 20vmin;
+  border-radius: 5%;
+}
+
 .app {
   display: flex;
   flex-direction: column;
