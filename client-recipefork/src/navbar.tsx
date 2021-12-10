@@ -4,6 +4,17 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import k from "./resource/K.png"
 
+/*
+sign out
+import { getAuth, signOut } from "firebase/auth";
+
+const auth = getAuth();
+signOut(auth).then(() => {
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});*/
+
 class AppNavbar extends React.Component {
     render() {
         return <div className="app">

@@ -14,7 +14,32 @@ signInWithEmailAndPassword(auth, email, password)
   });*/
 
 class Login extends React.Component {
+    state = {
+        email: '',
+        password: '',
+    };
 
+    onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
+        this.setState({email: e.currentTarget.value});
+    }
+
+    onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+        this.setState({password: e.currentTarget.value});
+    }
+
+    signIn = () => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, this.state.email, this.state.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+    };
 
     render() {
         return <div className="app">
@@ -23,19 +48,29 @@ class Login extends React.Component {
                 <div className="horizontal">
                     <label>Email</label>
                     <input
-                        type="text" />
+                        type="text"
+                        value={this.state.email}
+                        onChange={this.onEmailChange}
+                    />
                 </div>
                 <div className="horizontal">
                     <label>Password</label>
                     <input
-                        type="password" />
+                        type="password"
+                        value={this.state.password}
+                        onChange={this.onPasswordChange}
+                    />
                 </div>
             </form>
             <div className="horizontal">
                 Not a member? <a className="link" href="#">Sign up</a>
                 <a>Forgot password</a>
             </div>
-            <button>Login</button>
+            <input 
+                type="submit" 
+                value="Login" 
+                onClick={this.signIn} 
+            />
         </div>;
     }
 }
