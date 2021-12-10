@@ -6,6 +6,22 @@ import {
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDX3Dw0IN-RL0gsKpLSx28fppqSQWmEGFw",
+  authDomain: "recipefork-3e573.firebaseapp.com",
+  projectId: "recipefork-3e573",
+  storageBucket: "recipefork-3e573.appspot.com",
+  messagingSenderId: "396274049835",
+  appId: "1:396274049835:web:862e0256910d2a3b6e1b6e",
+  measurementId: "${config.measurementId}"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 ReactDOM.render(
   <BrowserRouter>
