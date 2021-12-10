@@ -82,6 +82,10 @@
   text-align: left;
 }
 
+.right-align {
+  text-align: right;
+}
+
 .full-width {
   width: 100%;
 }

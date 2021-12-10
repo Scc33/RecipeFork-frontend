@@ -1,19 +1,25 @@
 import React from 'react';
 import './App.css';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
 
 class ResetPassword extends React.Component {
   render() {
     return <div className="app">
-      <h2>Reset Password</h2>
-      Forgot password?
-      <form className="vertical">
-        <div className="horizontal">
-          <label>Email</label>
-          <input
-            type="text" />
-        </div>
-        <button type="submit">Send Password Reset Email</button>
-      </form>
+      <Container>
+        <h2>Reset Password</h2>
+        <Form>
+          <Form.Group className="mb-3" controlId="control1">
+            <Form.Label>Forgot password?</Form.Label>
+            <Form.Control
+              required
+              type="email"
+              placeholder="myemail@email.com" />
+          </Form.Group>
+          <Button type="submit">Send Password Reset Email</Button>
+        </Form>
+      </Container>
     </div>;
   }
 }

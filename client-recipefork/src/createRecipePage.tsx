@@ -9,28 +9,43 @@ class CreateRecipePage extends React.Component {
   render() {
     return <div className="app vertical">
       <AppNavbar />
-      <h3>Create Recipe</h3>
+      <h2>Create Recipe</h2>
       <Container>
         <Form>
           <Form.Group className="mb-3" controlId="control1">
             <Form.Label>Title</Form.Label>
-            <Form.Control type="text" placeholder="Mac n Cheese" />
+            <Form.Control
+              required
+              type="text"
+              placeholder="Mac n Cheese" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="control2">
             <Form.Label>Prep time</Form.Label>
-            <Form.Control type="text" placeholder="1h20m" />
+            <Form.Control
+              type="text"
+              placeholder="1h20m" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="control3">
             <Form.Label>Prep time</Form.Label>
-            <Form.Control type="text" placeholder="2h15m" />
+            <Form.Control
+              type="text"
+              placeholder="2h15m" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="control4">
             <Form.Label>Ingredients</Form.Label>
-            <Form.Control as="textarea" placeholder="Mac and Cheese" rows={3} />
+            <Form.Control
+              required
+              as="textarea"
+              placeholder="Mac and Cheese"
+              rows={3} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="control4">
             <Form.Label>Instructions</Form.Label>
-            <Form.Control as="textarea" placeholder="Mix and cook" rows={3} />
+            <Form.Control
+              required
+              as="textarea"
+              placeholder="Mix and cook"
+              rows={3} />
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Image</Form.Label>
@@ -46,7 +61,7 @@ class CreateRecipePage extends React.Component {
             <Button variant="outline-info">Info</Button>{' '}
             <Button variant="outline-dark">Dark</Button>
           </Form.Group>
-          <Button variant="primary">Publish</Button>{' '}
+          <Button type="submit">Publish</Button>
         </Form>
       </Container>
     </div>;

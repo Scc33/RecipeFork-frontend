@@ -1,5 +1,10 @@
 import React from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 /*const auth = getAuth();
 signInWithEmailAndPassword(auth, email, password)
@@ -20,11 +25,11 @@ class Login extends React.Component {
     };
 
     onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({email: e.currentTarget.value});
+        this.setState({ email: e.currentTarget.value });
     }
 
     onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({password: e.currentTarget.value});
+        this.setState({ password: e.currentTarget.value });
     }
 
     signIn = () => {
@@ -43,34 +48,34 @@ class Login extends React.Component {
 
     render() {
         return <div className="app">
-            <h2>Login</h2>
-            <form className="vertical">
-                <div className="horizontal">
-                    <label>Email</label>
-                    <input
-                        type="text"
-                        value={this.state.email}
-                        onChange={this.onEmailChange}
-                    />
-                </div>
-                <div className="horizontal">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.onPasswordChange}
-                    />
-                </div>
-            </form>
-            <div className="horizontal">
-                Not a member? <a className="link" href="#">Sign up</a>
-                <a>Forgot password</a>
-            </div>
-            <input 
-                type="submit" 
-                value="Login" 
-                onClick={this.signIn} 
-            />
+            <Container>
+                <h2>Login</h2>
+                <Form>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            required
+                            type="email"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                        />
+                    </Form.Group>
+                    <Row>
+                        <Col className="left-align">
+                            <a className="link" href="/recipeFork/createAccount">Sign up</a>
+                        </Col>
+                        <Col className="right-align">
+                            <a className="link" href="/recipeFork/forgotPassword">Forgot password</a>
+                        </Col>
+                    </Row>
+                    <Button type="submit" onClick={this.signIn}>Login</Button>
+                </Form>
+            </Container>
         </div>;
     }
 }

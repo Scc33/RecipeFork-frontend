@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
 
 class CreateAccnt extends React.Component {
     state = {
@@ -10,22 +12,6 @@ class CreateAccnt extends React.Component {
         password: '',
         verifyPassword: '',
     };
-
-    onUserChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ username: e.currentTarget.value });
-    }
-
-    onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ email: e.currentTarget.value });
-    }
-
-    onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ password: e.currentTarget.value });
-    }
-
-    onVerifyChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ verifyPassword: e.currentTarget.value });
-    }
 
     createAccount = () => {
         const auth = getAuth();
@@ -47,46 +33,42 @@ class CreateAccnt extends React.Component {
 
     render() {
         return <div className="app">
-            <h2>Create Account</h2>
-            <form className="vertical">
-                <div className="horizontal">
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        value={this.state.username}
-                        onChange={this.onUserChange}
-                    />
-                </div>
-                <div className="horizontal">
-                    <label>Email</label>
-                    <input
-                        type="text"
-                        value={this.state.email}
-                        onChange={this.onEmailChange}
-                    />
-                </div>
-                <div className="horizontal">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.onPasswordChange}
-                    />
-                </div>
-                <div className="horizontal">
-                    <label>Verify Password</label>
-                    <input
-                        type="password"
-                        value={this.state.verifyPassword}
-                        onChange={this.onVerifyChange}
-                    />
-                </div>
-                <input
-                    type="submit"
-                    value="Create account"
-                    onClick={this.createAccount}
-                />
-            </form>
+            <Container>
+                <h2>Create Account</h2>
+                <Form>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            required
+                            type="email"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Verify Password</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                        />
+                    </Form.Group>
+                    <Button
+                        type="submit"
+                        onClick={this.createAccount}>Create account</Button>
+                </Form>
+            </Container>
         </div >;
     }
 }
