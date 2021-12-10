@@ -85,3 +85,11 @@
 .full-width {
   width: 100%;
 }
+
+.wide-width {
+  width: 80%;
+}
+
+.recipe-creation {
+  min-width: 60vmin;
+}
