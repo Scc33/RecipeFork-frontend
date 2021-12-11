@@ -39,7 +39,7 @@ class Login extends React.Component {
         return <div className="app">
             <Container>
                 <Col className="center-align">
-                    <img src={recipeforkLogo} />
+                    <img src={recipeforkLogo} alt="Recipe Fork Logo" />
                     <h2>Login</h2>
                 </Col>
                 <Form>
