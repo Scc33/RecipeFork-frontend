@@ -28,4 +28,4 @@ pages:
     - public
 
   only:
-    - frontend-ci-deploy
+    - main
