@@ -18,11 +18,11 @@ class HomePage extends React.Component {
                     <Col>
                         <h4>Recipes</h4>
                         <ListGroup variant="flush">
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />Cras justo odio</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />apibus ac facilisis in</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />Morbi leo risus</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />Porta ac consectetur ac</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} />Vestibulum at eros</ListGroup.Item>
+                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Cras justo odio</ListGroup.Item>
+                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />apibus ac facilisis in</ListGroup.Item>
+                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Morbi leo risus</ListGroup.Item>
+                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Porta ac consectetur ac</ListGroup.Item>
+                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Vestibulum at eros</ListGroup.Item>
                         </ListGroup>
                     </Col>
                     <Col>
