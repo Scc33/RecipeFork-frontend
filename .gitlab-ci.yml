@@ -11,6 +11,9 @@ stages:
   - deploy
 
 pages:
+  before_script:
+    - cd client-recipefork/
+
   stage: deploy
 
   script:
@@ -25,4 +28,4 @@ pages:
     - public
 
   only:
-    - main
+    - frontend-ci-deploy
