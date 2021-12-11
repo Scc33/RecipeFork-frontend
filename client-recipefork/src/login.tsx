@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import recipeforkLogo from './resource/recipeFork.png'
 
 class Login extends React.Component {
     state = {
@@ -37,7 +38,10 @@ class Login extends React.Component {
     render() {
         return <div className="app">
             <Container>
-                <h2>Login</h2>
+                <Col className="center-align">
+                    <img src={recipeforkLogo} />
+                    <h2>Login</h2>
+                </Col>
                 <Form>
                     <Form.Group className="mb-3" controlId="control1">
                         <Form.Label>Email</Form.Label>
@@ -61,7 +65,9 @@ class Login extends React.Component {
                             <a className="link" href="/recipeFork/forgotPassword">Forgot password</a>
                         </Col>
                     </Row>
-                    <Button type="submit" onClick={this.signIn}>Login</Button>
+                    <Row className="mt-3 center-align">
+                        <Button type="submit" onClick={this.signIn}>Login</Button>
+                    </Row>
                 </Form>
             </Container>
         </div>;

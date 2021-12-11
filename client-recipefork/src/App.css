@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .profile-thumb {
   height: 3vmin;
   border-radius: 50%;
@@ -31,57 +27,14 @@
   color: #61dafb;
 }
 
-.vertical {
-  display: flex;
-  flex-direction: column;
-  
-}
-
-.horizontal {
-  display: flex;
-  flex-direction: row;
-}
-
 .padding {
   padding: 10px;
 }
 
-.vl {
-  border-right: 3px solid #282c34;
-  height: 500px;
-}
-
-.hr {
-  height:10px;
-  border-width:0;
-  color:gray;
-  background-color:gray
-}
-
 .no-bullets {
-  list-style-type: none; /* Remove bullets */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
-}
-
-.home-recipes {
-  min-width: 30vmin;
-}
-
-.home-activity {
-  min-width: 50vmin;
-}
-
-.recipes-title {
-  min-width: 70vmin;
-}
-
-.recipes-info {
-  min-width: 30vmin;
-}
-
-.recipes-tags {
-  max-width: 60vmax;;
+  list-style-type: none;
+  padding: 0; 
+  margin: 0; 
 }
 
 .left-align {
@@ -92,10 +45,6 @@
   text-align: right;
 }
 
-.full-width {
-  width: 100%;
-}
-
-.wide-width {
-  width: 80%;
+.center-align {
+  text-align: center;
 }

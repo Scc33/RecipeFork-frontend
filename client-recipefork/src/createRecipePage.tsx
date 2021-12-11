@@ -7,10 +7,10 @@ import Container from 'react-bootstrap/Container'
 class CreateRecipePage extends React.Component {
 
   render() {
-    return <div className="app vertical">
+    return <div className="app">
       <AppNavbar />
-      <h2>Create Recipe</h2>
       <Container>
+        <h2 className="center-align">Create Recipe</h2>
         <Form>
           <Form.Group className="mb-3" controlId="control1">
             <Form.Label>Title</Form.Label>
