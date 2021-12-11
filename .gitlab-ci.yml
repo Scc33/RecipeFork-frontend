@@ -1,0 +1,28 @@
+image: node:latest
+
+variables:
+  PUBLIC_URL: "/recipeFork"
+
+cache:
+  paths:
+  - client-recipefork/node_modules
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+
+  script:
+    - npm install        # Install all dependencies
+    - npm run build      # Build for prod
+    - mv public _public  # CRA and gitlab pages both use the public folder. Only do this in a build pipeline.
+    - mv build public    # Move build files to public dir for Gitlab Pages
+    - cp public/index.html public/404.html
+
+  artifacts:
+    paths:
+    - public
+
+  only:
+    - master
