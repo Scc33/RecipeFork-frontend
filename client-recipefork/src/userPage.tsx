@@ -29,10 +29,10 @@ class UserPage extends React.Component {
                         </Row>
                         <Row>
                             <Col>
-                                <a href="#">
+                                <a>
                                     <Card>
                                         <Card.Body>
-                                            <Card.Img src={k} />
+                                            <Card.Img src={k} alt="Pinned recipe" />
                                             <Card.Title>Mac n Cheese</Card.Title>
                                             <Card.Text>
                                                 3h20m
@@ -42,10 +42,10 @@ class UserPage extends React.Component {
                                 </a>
                             </Col>
                             <Col>
-                                <a href="#">
+                                <a>
                                     <Card>
                                         <Card.Body>
-                                            <Card.Img src={k} />
+                                            <Card.Img src={k} alt="Pinned recipe" />
                                             <Card.Title>Mac n Cheese</Card.Title>
                                             <Card.Text>
                                                 3h20m
@@ -55,10 +55,10 @@ class UserPage extends React.Component {
                                 </a>
                             </Col>
                             <Col>
-                                <a href="#">
+                                <a>
                                     <Card>
                                         <Card.Body>
-                                            <Card.Img src={k} />
+                                            <Card.Img src={k} alt="Pinned recipe" />
                                             <Card.Title>Mac n Cheese</Card.Title>
                                             <Card.Text>
                                                 3h20m

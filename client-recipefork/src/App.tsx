@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from "./resource/recipeFork.png"
 import Login from "./login"
 import './App.css';
 import CreateAccnt from './createAcct';
