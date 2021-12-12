@@ -24,6 +24,7 @@ class AppNavbar extends React.Component {
                     <Nav className="me-auto">
                         <NavDropdown title={<img className="profile-thumb" src={k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
                             <NavDropdown.Item href="/recipeFork/userPage">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/recipeFork/settingsPage">Settings</NavDropdown.Item>
                             <NavDropdown.Item href="/recipeFork/createRecipePage">New Recipe</NavDropdown.Item>
                             <NavDropdown.Item onClick={this.logout}>Sign Out</NavDropdown.Item>
                         </NavDropdown>
