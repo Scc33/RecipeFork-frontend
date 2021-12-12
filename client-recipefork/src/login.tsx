@@ -1,143 +1,88 @@
 import React from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-//import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
-import { Formik, Field, Form } from 'formik';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
     state = {
         email: '',
         password: '',
         error: false,
+        redirect: false,
     };
 
-    onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ email: e.currentTarget.value });
-    }
+    onSubmit = () => {
+        console.log(this.state.email);
+        this.signIn(this.state.email, this.state.password);
+    };
 
-    onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ password: e.currentTarget.value });
-    }
-
-    signIn = (email:string, password:string) => {
+    signIn = (email: string, password: string) => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
+                this.setState({ redirect: true });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                this.state.error = true;
+                this.setState({ error: true });
                 console.log(errorCode, errorMessage);
             });
     };
 
     render() {
-        return (
-            <Formik
-                initialValues={{ name: '', email: '', password: '', content: '' }}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 1000);
-                    console.log(values);
-                    this.signIn(values.email, values.password);
-                }}
-            >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <Field name="name" className="form-control" type="text" />
-                        </div>
-    
-                        <div className="form-group">
-                            <label htmlFor="email">Email Address</label>
-                            <Field name="email" className="form-control" type="email" />
-                        </div>
-    
-                        <div className="form-group">
-                            <label htmlFor="subject">Password</label>
-                            <Field name="password" className="form-control" type="text" />
-                        </div>
-    
-                        <div className="form-group">
-                            <label htmlFor="content">Content</label>
-                            <Field name="content" className="form-control" as="textarea" />
-                        </div>
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
-                        </div>
-    
-                    </Form>
-                )}
-            </Formik>
-        );
-    }
-}
-
- /*return <div className="app">
+        return <div className="app">
             <Container>
                 <Col className="center-align">
                     <img src={recipeforkLogo} alt="Recipe Fork Logo" />
                     <h2>Login</h2>
                     {this.state.error && <h3>Incorrect username or password</h3>}
                 </Col>
-                <Formik
-                    validationSchema={this.schema}
-                    onSubmit={values => console.log(values)}
-                    initialValues={{
-                        email: '',
-                        password: '',
-                    }}>
-                    {({
-                        handleChange,
-                        values,
-                        handleSubmit,
-                    }) => (
-                        <Form>
-                            <Form.Group className="mb-3" controlId="control1">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    required
-                                    type="email"
-                                    name="email"
-                                    value = {values.email}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="control2">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    required
-                                    type="password"
-                                    name="password"
-                                    value = {values.password}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                            <Row>
-                                <Col className="left-align">
-                                    <a className="link" href="/recipeFork/createAccount">Sign up</a>
-                                </Col>
-                                <Col className="right-align">
-                                    <a className="link" href="/recipeFork/forgotPassword">Forgot password</a>
-                                </Col>
-                            </Row>
-                            <Row className="mt-3 center-align">
-                                <Button type="submit">Login</Button>
-                            </Row>
-                        </Form>)}
-                </Formik>
+                <Form>
+                    <Form.Group className="mb-3" controlId="control1">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            required
+                            type="email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={e => this.setState({ email: e.target.value })}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="control2">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={e => this.setState({ password: e.target.value })}
+                        />
+                    </Form.Group>
+                    <Row>
+                        <Col className="left-align">
+                            <a className="link" href="/recipeFork/createAccount">Sign up</a>
+                        </Col>
+                        <Col className="right-align">
+                            <a className="link" href="/recipeFork/forgotPassword">Forgot password</a>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3 center-align">
+                        <Button onClick={this.onSubmit}>Login</Button>
+                        { this.state.redirect ? (<Redirect push to="/recipeFork/home"/>) : null }
+                    </Row>
+                </Form>
             </Container>
-        </div>;*/
+        </div>;
+    }
+}
 
 export default Login

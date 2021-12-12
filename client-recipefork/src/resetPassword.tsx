@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { Formik } from 'formik';
 
 class ResetPassword extends React.Component {
   state = {
