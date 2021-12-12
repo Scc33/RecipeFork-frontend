@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
+import { Redirect } from 'react-router-dom';
 
 class CreateAccnt extends React.Component {
     state = {
@@ -13,23 +14,46 @@ class CreateAccnt extends React.Component {
         email: '',
         password: '',
         verifyPassword: '',
+        match: true,
+        redirect: false,
+        tooShort: false,
+        alreadyExists: false,
     };
 
-    createAccount = () => {
+    onSubmit = () => {
+        console.log(this.state.email);
+        if (this.state.password === this.state.verifyPassword) {
+            this.setState({ match: true });
+            this.createAccount(this.state.email, this.state.password);
+        } else {
+            this.setState({ match: false });
+        }
+    };
+
+    createAccount = (email: string, password: string) => {
         const auth = getAuth();
-        createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                /*if (user) {
-                    window.location = '/';
-                }*/
+                this.setState({ redirect: true });
                 console.log(user);
+                this.setState({ redirect: true });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
+                if (errorCode === 'auth/email-already-in-use') {
+                    this.setState({ alreadyExists: true });
+                } else {
+                    this.setState({ alreadyExists: false });
+                }
+                if (errorCode === 'auth/weak-password') {
+                    this.setState({ tooShort: true });
+                } else {
+                    this.setState({ tooShort: false });
+                }
             });
     };
 
@@ -46,20 +70,32 @@ class CreateAccnt extends React.Component {
                         <Form.Control
                             required
                             type="text"
+                            name="username"
+                            value={this.state.username}
+                            onChange={e => this.setState({ username: e.target.value })}
                         />
                     </Form.Group>
+                    {this.state.alreadyExists && <h4 className="center-align">An account with that email already exists</h4>}
                     <Form.Group className="mb-3" controlId="control1">
                         <Form.Label>Email</Form.Label>
                         <Form.Control
                             required
                             type="email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={e => this.setState({ email: e.target.value })}
                         />
                     </Form.Group>
+                    {!this.state.match && <h4 className="center-align">Passwords must match</h4>}
+                    {this.state.tooShort && <h4 className="center-align">Passwords must be at least 6 characters</h4>}
                     <Form.Group className="mb-3" controlId="control1">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             required
                             type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={e => this.setState({ password: e.target.value })}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="control1">
@@ -67,11 +103,14 @@ class CreateAccnt extends React.Component {
                         <Form.Control
                             required
                             type="password"
+                            name="verifyPassword"
+                            value={this.state.verifyPassword}
+                            onChange={e => this.setState({ verifyPassword: e.target.value })}
                         />
                     </Form.Group>
                     <Button
-                        type="submit"
-                        onClick={this.createAccount}>Create account</Button>
+                        onClick={this.onSubmit}>Create account</Button>
+                        { this.state.redirect ? (<Redirect push to="/recipeFork/"/>) : null }
                 </Form>
             </Container>
         </div >;

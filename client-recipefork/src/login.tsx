@@ -6,32 +6,35 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
     state = {
         email: '',
         password: '',
+        error: false,
+        redirect: false,
     };
 
-    onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ email: e.currentTarget.value });
-    }
+    onSubmit = () => {
+        console.log(this.state.email);
+        this.signIn(this.state.email, this.state.password);
+    };
 
-    onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState({ password: e.currentTarget.value });
-    }
-
-    signIn = () => {
+    signIn = (email: string, password: string) => {
         const auth = getAuth();
-        signInWithEmailAndPassword(auth, this.state.email, this.state.password)
+        signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                // ...
+                console.log(user);
+                this.setState({ redirect: true });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                this.setState({ error: true });
+                console.log(errorCode, errorMessage);
             });
     };
 
@@ -41,6 +44,7 @@ class Login extends React.Component {
                 <Col className="center-align">
                     <img src={recipeforkLogo} alt="Recipe Fork Logo" />
                     <h2>Login</h2>
+                    {this.state.error && <h3>Incorrect username or password</h3>}
                 </Col>
                 <Form>
                     <Form.Group className="mb-3" controlId="control1">
@@ -48,13 +52,19 @@ class Login extends React.Component {
                         <Form.Control
                             required
                             type="email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={e => this.setState({ email: e.target.value })}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="control1">
+                    <Form.Group className="mb-3" controlId="control2">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             required
                             type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={e => this.setState({ password: e.target.value })}
                         />
                     </Form.Group>
                     <Row>
@@ -66,7 +76,8 @@ class Login extends React.Component {
                         </Col>
                     </Row>
                     <Row className="mt-3 center-align">
-                        <Button type="submit" onClick={this.signIn}>Login</Button>
+                        <Button onClick={this.onSubmit}>Login</Button>
+                        { this.state.redirect ? (<Redirect push to="/recipeFork/home"/>) : null }
                     </Row>
                 </Form>
             </Container>

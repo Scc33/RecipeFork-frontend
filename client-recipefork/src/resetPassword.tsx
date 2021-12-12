@@ -6,31 +6,30 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { Formik } from 'formik';
-import * as yup from 'yup';
 
 class ResetPassword extends React.Component {
   state = {
     email: '',
+    sent: false,
   }
-  schema = yup.object().shape({
-    email: yup.string().required(),
-  });
 
-
-  resetPassword = () => {
+  resetPassword = (email: string) => {
     const auth = getAuth();
-    sendPasswordResetEmail(auth, this.state.email)
+    sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
-        // ..
+        this.setState({ sent: true });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   }
+
+  onSubmit = () => {
+    console.log(this.state.email);
+    this.resetPassword(this.state.email);
+    window.open("/recipeFork/", "_blank")
+  };
 
   render() {
     return <div className="app">
@@ -39,16 +38,6 @@ class ResetPassword extends React.Component {
           <img src={recipeforkLogo} alt="Recipe Fork Logo" />
           <h2>Reset Password</h2>
         </Col>
-        <Formik
-          validationSchema={this.schema}
-          onSubmit={console.log}
-          initialValues={{
-            email: '',
-          }}>
-          {({
-            handleChange,
-            values,
-          }) => (
             <Form>
               <Form.Group className="mb-3" controlId="control1">
                 <Form.Label>Forgot password?</Form.Label>
@@ -56,14 +45,13 @@ class ResetPassword extends React.Component {
                   required
                   type="email"
                   name="email"
-                  value = { values.email }
-                  onChange={ handleChange }
+                  value={this.state.email}
+                  onChange={e => this.setState({ email: e.target.value })}
                   placeholder="myemail@email.com" />
               </Form.Group>
-              <Button type="submit">Send Password Reset Email</Button>
+              <Button onClick={this.onSubmit}>Send Password Reset Email</Button>
+              {this.state.sent && <h3>Password reset email sent!</h3>}
             </Form>
-          )}
-        </Formik>
       </Container>
     </div>;
   }
