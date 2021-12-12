@@ -2,18 +2,22 @@ import bodyParser from 'body-parser';
 import express, {
   Application, NextFunction, Request, Response, Router,
 } from 'express';
-// import mongoose, secrets
+import { connect } from 'mongoose';
 
+import config from './config';
 import registerRoutes from './routes/index';
 
 const server: Application = express();
 
-// Use environment defined port or 4000
+// Use environment defined port or local defined port
 // TODO: potentially set up .env file
-const port: number = Number(process.env.PORT) || 4000;
+const port: number = Number(process.env.PORT) || config.localport;
 
-// TODO: use mongoose to connect to DB
-// mongoose.connect(secrets.mongo_connection,  { useNewUrlParser: true });
+// Connect to DB via mongoose
+setTimeout(
+  () => connect(config.mongo_connection, () => console.log('connected to cluster')), /* eslint-disable-line no-console */
+  30000,
+);
 
 // Allow CORS so that backend and frontend could be put on different servers
 const allowCrossDomain = (
@@ -34,7 +38,7 @@ server.use(bodyParser.urlencoded({
 }));
 server.use(bodyParser.json());
 
-// Use routes as a module (see index.js)
+// Register routes with the server
 const router: Router = express.Router();
 registerRoutes(server, router);
 
