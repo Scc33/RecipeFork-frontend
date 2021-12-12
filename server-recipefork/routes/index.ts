@@ -1,9 +1,15 @@
-import express from 'express';
+import { Application, Router } from 'express';
 
-const registerRoutes = (server: express.Application) => {
-  server.get('/api/', (req: express.Request, res: express.Response) => {
-    res.json({ message: 'the route works!' });
-  });
+import recipesRoute from './recipes';
+import recipesNameRoute from './recipes-name';
+import usersRoute from './users';
+import usersNameRoute from './users-name';
+
+const registerRoutes = (server: Application, router: Router) => {
+  server.use('/api', recipesRoute(router));
+  server.use('/api', recipesNameRoute(router));
+  server.use('/api', usersRoute(router));
+  server.use('/api', usersNameRoute(router));
 };
 
 export default registerRoutes;

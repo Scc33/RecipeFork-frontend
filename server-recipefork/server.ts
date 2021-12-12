@@ -1,10 +1,12 @@
 import bodyParser from 'body-parser';
-import express from 'express';
+import express, {
+  Application, NextFunction, Request, Response, Router,
+} from 'express';
 // import mongoose, secrets
 
 import registerRoutes from './routes/index';
 
-const server: express.Application = express();
+const server: Application = express();
 
 // Use environment defined port or 4000
 // TODO: potentially set up .env file
@@ -15,9 +17,9 @@ const port: number = Number(process.env.PORT) || 4000;
 
 // Allow CORS so that backend and frontend could be put on different servers
 const allowCrossDomain = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
@@ -33,7 +35,8 @@ server.use(bodyParser.urlencoded({
 server.use(bodyParser.json());
 
 // Use routes as a module (see index.js)
-registerRoutes(server);
+const router: Router = express.Router();
+registerRoutes(server, router);
 
 // Start the server
 server.listen(port, () => console.log(`Server running on port ${port}`)); /* eslint-disable-line no-console */
