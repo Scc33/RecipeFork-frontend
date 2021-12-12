@@ -11,25 +11,25 @@ import { Formik } from 'formik';
 class ResetPassword extends React.Component {
   state = {
     email: '',
+    sent: false,
   }
 
   resetPassword = (email: string) => {
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
-        // ..
+        this.setState({ sent: true });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   }
 
   onSubmit = () => {
     console.log(this.state.email);
     this.resetPassword(this.state.email);
+    window.open("/recipeFork/", "_blank")
   };
 
   render() {
@@ -51,6 +51,7 @@ class ResetPassword extends React.Component {
                   placeholder="myemail@email.com" />
               </Form.Group>
               <Button onClick={this.onSubmit}>Send Password Reset Email</Button>
+              {this.state.sent && <h3>Password reset email sent!</h3>}
             </Form>
       </Container>
     </div>;
