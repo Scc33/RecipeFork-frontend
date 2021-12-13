@@ -28,7 +28,7 @@ class ResetPassword extends React.Component {
   onSubmit = () => {
     console.log(this.state.email);
     this.resetPassword(this.state.email);
-    window.open("/recipeFork/", "_blank")
+    window.open("/recipefork-frontend/", "_blank")
   };
 
   render() {

@@ -31,17 +31,17 @@ class AppNavbar extends React.Component<AuthState> {
     render() {
         return <div className="app">
             <Navbar fixed="top" bg="light">
-                <Navbar.Brand href="/recipeFork/home">RecipeFork</Navbar.Brand>
+                <Navbar.Brand href="/recipefork-frontend/home">RecipeFork</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavDropdown title={<img className="profile-thumb" src={k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/recipeFork/home">Home</NavDropdown.Item>
-                            <NavDropdown.Item href="/recipeFork/userPage">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="/recipeFork/settingsPage">Settings</NavDropdown.Item>
-                            <NavDropdown.Item href="/recipeFork/createRecipePage">New Recipe</NavDropdown.Item>
+                            <NavDropdown.Item href="/recipefork-frontend/home">Home</NavDropdown.Item>
+                            <NavDropdown.Item href="/recipefork-frontend/userPage">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/recipefork-frontend/settingsPage">Settings</NavDropdown.Item>
+                            <NavDropdown.Item href="/recipefork-frontend/createRecipePage">New Recipe</NavDropdown.Item>
                             <NavDropdown.Item onClick={this.logout}>Sign Out</NavDropdown.Item>
-                            {this.state.redirect ? (<Redirect push to="/recipeFork/" />) : null}
+                            {this.state.redirect ? (<Redirect push to="/recipefork-frontend/" />) : null}
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

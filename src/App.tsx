@@ -29,12 +29,12 @@ function App() {
   if (!auth) {
     return (
       <div className="App">
-        <Route path="/recipeFork/" exact component={LandingPage} />
-        <Route path="/recipeFork/login">
+        <Route path="/recipefork-frontend/" exact component={LandingPage} />
+        <Route path="/recipefork-frontend/login">
           <Login setAuth={setAuth} />;
         </Route>
-        <Route path="/recipeFork/createAccount" exact component={CreateAccnt} />
-        <Route path="/recipeFork/forgotPassword" exact component={ResetPassword} />
+        <Route path="/recipefork-frontend/createAccount" exact component={CreateAccnt} />
+        <Route path="/recipefork-frontend/forgotPassword" exact component={ResetPassword} />
       </div >
     );
   }
@@ -42,15 +42,15 @@ function App() {
   return (
     <div className="App">
       <AppNavbar setAuth={setAuth} />
-      <Route path="/recipeFork/home">
+      <Route path="/recipefork-frontend/home">
         <HomePage auth={auth} />
       </Route>
-      <Route path="/recipeFork/userPage">
+      <Route path="/recipefork-frontend/userPage">
         <UserPage auth={auth} />
       </Route>
-      <Route path="/recipeFork/recipePage" exact component={RecipePage} />
-      <Route path="/recipeFork/createRecipePage" exact component={CreateRecipePage} />
-      <Route path="/recipeFork/settingsPage">
+      <Route path="/recipefork-frontend/recipePage" exact component={RecipePage} />
+      <Route path="/recipefork-frontend/createRecipePage" exact component={CreateRecipePage} />
+      <Route path="/recipefork-frontend/settingsPage">
         <Settings auth={auth} />
       </Route>
     </div >
