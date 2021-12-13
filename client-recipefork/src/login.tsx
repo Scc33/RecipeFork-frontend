@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -8,7 +8,11 @@ import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
 import { Redirect } from 'react-router-dom';
 
-class Login extends React.Component {
+interface AuthState {
+    setAuth: (active: UserCredential) => void;
+}
+
+class Login extends React.Component<AuthState> {
     state = {
         email: '',
         password: '',
@@ -29,6 +33,7 @@ class Login extends React.Component {
                 const user = userCredential.user;
                 console.log(user);
                 this.setState({ redirect: true });
+                this.props.setAuth(userCredential);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -77,7 +82,7 @@ class Login extends React.Component {
                     </Row>
                     <Row className="mt-3 center-align">
                         <Button onClick={this.onSubmit}>Login</Button>
-                        { this.state.redirect ? (<Redirect push to="/recipeFork/home"/>) : null }
+                        {this.state.redirect ? (<Redirect push to="/recipeFork/home" />) : null}
                     </Row>
                 </Form>
             </Container>
