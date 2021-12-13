@@ -1,5 +1,4 @@
 import React from 'react';
-import AppNavbar from './navbar'
 import Button from 'react-bootstrap/Button'
 import k from "./resource/K.png"
 import Container from 'react-bootstrap/Container'
@@ -9,7 +8,6 @@ import Col from 'react-bootstrap/Col'
 class RecipePage extends React.Component {
   render() {
     return <div className="app vertical">
-      <AppNavbar />
       <Container>
         <Row>
           <Col className="left-align">
