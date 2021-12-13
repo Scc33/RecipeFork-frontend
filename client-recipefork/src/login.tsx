@@ -46,6 +46,11 @@ class Login extends React.Component<AuthState> {
     render() {
         return <div className="app">
             <Container>
+                <Col className="center-align">
+                    <img src={recipeforkLogo} alt="Recipe Fork Logo" />
+                    <h2>Login</h2>
+                    {this.state.error && <h3>Incorrect username or password</h3>}
+                </Col>
                 <Form>
                     <Form.Group className="mb-3" controlId="control1">
                         <Form.Label>Email</Form.Label>

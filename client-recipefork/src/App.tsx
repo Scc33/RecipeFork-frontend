@@ -17,6 +17,7 @@ import LandingPage from './landingPage';
 
 function App() {
   const [auth, setAuth] = React.useState<UserCredential | null>(null);
+  console.log(auth);
 
   if (!auth) {
     return (
@@ -34,8 +35,12 @@ function App() {
   return (
     <div className="App">
       <Route path="/recipeFork/" exact component={HomePage} />
-      <Route path="/recipeFork/home" exact component={HomePage} />
-      <Route path="/recipeFork/userPage" exact component={UserPage} />
+      <Route path="/recipeFork/home">
+        <HomePage auth={auth} />
+      </Route>
+      <Route path="/recipeFork/userPage">
+        <UserPage auth={auth} />
+      </Route>
       <Route path="/recipeFork/recipePage" exact component={RecipePage} />
       <Route path="/recipeFork/createRecipePage" exact component={CreateRecipePage} />
       <Route path="/recipeFork/settingsPAge" exact component={Settings} />

@@ -6,8 +6,13 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { UserCredential } from 'firebase/auth';
 
-class UserPage extends React.Component {
+interface AuthState {
+    auth: UserCredential;
+}
+
+class UserPage extends React.Component<AuthState> {
     render() {
         return <div className="app vertical">
             <AppNavbar />
@@ -19,6 +24,7 @@ class UserPage extends React.Component {
                         </Row>
                         <Col>
                             <h3>Username</h3>
+                            <h5>Email: {this.props.auth.user.email}</h5>
                             <h5>24 Posted Recipes</h5>
                             <h5>69 Forks</h5>
                         </Col>

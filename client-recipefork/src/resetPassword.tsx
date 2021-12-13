@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
+import recipeforkLogo from './resource/recipeFork.png'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 class ResetPassword extends React.Component {
@@ -34,6 +35,7 @@ class ResetPassword extends React.Component {
     return <div className="app">
       <Container>
         <Col className="center-align">
+          <img src={recipeforkLogo} alt="Recipe Fork Logo" />
           <h2>Reset Password</h2>
         </Col>
             <Form>
