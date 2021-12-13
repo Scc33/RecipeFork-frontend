@@ -7,7 +7,7 @@ import HomePage from "./homePage"
 import UserPage from './userPage';
 import RecipePage from './recipePage';
 import CreateRecipePage from './createRecipePage';
-import Settings from './createRecipePage';
+import Settings from './settings';
 import {
   Route,
 } from "react-router-dom";
