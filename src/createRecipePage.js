@@ -5,13 +5,52 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 
-class CreateRecipePage extends React.Component{
+class CreateRecipePage extends React.Component {
   state = {
     id: '',
     recipe: {},
     edit: false,
     checkEdit: false,
+
+    title: '',
+    cookTime: '',
+    prepTime: '',
+    ingredients: '',
+    instructions: '',
+    tags: [],
+    image: '',
   }
+
+  onSubmit = () => {
+    console.log("submitting")
+    const options = {
+      headers: { "Content-type": "application/x-www-form-urlencoded","Accept": "text/plain" }
+    };
+
+    if (this.state.edit) {
+      axios.put(`http://localhost:4000/api/recipes/${this.state.id}`,
+        {
+          name: this.state.title,
+          cookTime: this.state.cookTime,
+          prepTime: this.state.prepTime,
+          ingredients: this.state.ingredients,
+          instructions: this.state.instructions,
+          tags: this.state.tags,
+          image: this.state.image
+        })
+    } else {
+      axios.post(`http://localhost:4000/api/recipes`,
+        {
+          name: this.state.title,
+          cookTime: this.state.cookTime,
+          prepTime: this.state.prepTime,
+          ingredients: this.state.ingredients,
+          instructions: this.state.instructions,
+          tags: this.state.tags,
+          image: this.state.image
+        })
+    }
+  };
 
   render() {
     if (!this.state.checkEdit) {
@@ -20,12 +59,12 @@ class CreateRecipePage extends React.Component{
       const edit = new URLSearchParams(search).get("edit");
       if (edit) {
         axios.get(`http://localhost:4000/api/recipes?where={"_id":"${url_id}"}`)
-        .then(res => {
-          const recipe = res.data.data;
-          console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
-          this.setState({ id: url_id, recipe: recipe[0] , edit: true, checkEdit: true});
-          console.log("id", url_id, recipe[0])
-        })
+          .then(res => {
+            const recipe = res.data.data;
+            console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
+            this.setState({ id: url_id, recipe: recipe[0], edit: true, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image });
+            console.log("id", url_id, recipe[0])
+          })
       } else {
         this.setState({ checkEdit: true });
       }
@@ -41,21 +80,24 @@ class CreateRecipePage extends React.Component{
                 required
                 type="text"
                 placeholder="Mac n Cheese"
-                value={this.state.edit ? this.state.recipe.name : ""} />
+                value={this.state.title}
+                onChange={e => this.setState({ title: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="control2">
-              <Form.Label>Prep time</Form.Label>
+              <Form.Label>Cook time</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="1h20m"
-                value={this.state.edit ? this.state.recipe.cookTime : ""} />
+                value={this.state.cookTime}
+                onChange={e => this.setState({ cookTime: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="control3">
               <Form.Label>Prep time</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="2h15m"
-                value={this.state.edit ? this.state.recipe.prepTime : ""} />
+                value={this.state.prepTime}
+                onChange={e => this.setState({ prepTime: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="control4">
               <Form.Label>Ingredients</Form.Label>
@@ -64,7 +106,8 @@ class CreateRecipePage extends React.Component{
                 as="textarea"
                 placeholder="Mac and Cheese"
                 rows={3}
-                value={this.state.edit ? this.state.recipe.ingredients : ""} />
+                value={this.state.ingredients}
+                onChange={e => this.setState({ ingredients: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="control4">
               <Form.Label>Instructions</Form.Label>
@@ -73,7 +116,8 @@ class CreateRecipePage extends React.Component{
                 as="textarea"
                 placeholder="Mix and cook"
                 rows={3}
-                value={this.state.edit ? this.state.recipe.instructions : ""} />
+                value={this.state.instructions}
+                onChange={e => this.setState({ instructions: e.target.value })} />
             </Form.Group>
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Image</Form.Label>
@@ -89,7 +133,10 @@ class CreateRecipePage extends React.Component{
               <Button variant="outline-info">Info</Button>{' '}
               <Button variant="outline-dark">Dark</Button>
             </Form.Group>
-            <Button type="submit">Publish</Button>
+            <Button
+              onClick={this.onSubmit}>
+              Publish
+            </Button>
           </Form>
         </Container>
       </div>;
