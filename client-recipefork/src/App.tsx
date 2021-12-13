@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserCredential } from 'firebase/auth';
+import LandingPage from './landingPage';
 
 function App() {
   const [auth, setAuth] = React.useState<UserCredential | null>(null);
@@ -20,9 +21,7 @@ function App() {
   if (!auth) {
     return (
       <div className="App">
-        <Route path="/recipeFork/">
-          <Login setAuth={setAuth} />;
-        </Route>
+        <Route path="/recipeFork/" exact component={LandingPage} />
         <Route path="/recipeFork/login">
           <Login setAuth={setAuth} />;
         </Route>

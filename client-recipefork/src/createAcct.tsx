@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
-import recipeforkLogo from './resource/recipeFork.png'
 import { Redirect } from 'react-router-dom';
 
 class CreateAccnt extends React.Component {
@@ -61,7 +60,6 @@ class CreateAccnt extends React.Component {
         return <div className="app">
             <Container>
                 <Col className="center-align">
-                    <img src={recipeforkLogo} alt="Recipe Fork Logo" />
                     <h2>Create Account</h2>
                 </Col>
                 <Form>
