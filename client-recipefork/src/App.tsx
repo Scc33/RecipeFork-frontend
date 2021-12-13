@@ -50,8 +50,10 @@ function App() {
       </Route>
       <Route path="/recipeFork/recipePage" exact component={RecipePage} />
       <Route path="/recipeFork/createRecipePage" exact component={CreateRecipePage} />
-      <Route path="/recipeFork/settingsPage" exact component={Settings} />
-    </div>
+      <Route path="/recipeFork/settingsPage">
+        <Settings auth={auth} />
+      </Route>
+    </div >
   );
 }
 
