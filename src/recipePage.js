@@ -12,6 +12,14 @@ class RecipePage extends React.Component {
     recipe: null,
   }
 
+  openEdit(id) {
+    window.location.href = "/recipefork-frontend/createRecipePage?id=" + id + "&edit=true";
+  }
+
+  openFork(id) {
+    window.location.href = "/recipefork-frontend/createRecipePage?id=" + id + "&fork=true";
+  }
+
   render() {
     if (this.state.id === '') {
       const search = this.props.location.search;
@@ -39,7 +47,7 @@ class RecipePage extends React.Component {
             </Col>
             <Col className="right-align padding">
               <Button variant="outline-secondary">Fork</Button>{' '}
-              <Button variant="outline-secondary">Edit</Button>{' '}
+              <Button variant="outline-secondary" onClick={() => this.openEdit(this.state.recipe["_id"])}>Edit</Button>{' '}
             </Col>
           </Row>
           <Row>
