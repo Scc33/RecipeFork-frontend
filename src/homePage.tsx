@@ -17,8 +17,12 @@ class HomePage extends React.Component<AuthState> {
         recipes: []
     }
 
+    openRecipe(id: string) {
+        window.location.href = "/recipefork-frontend/recipePage?id=" + id;
+    }
+
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/recipes?where={"_id": {"$in": ["61b718bfb4e3958cfa8dc9be","61b718d0b4e3958cfa8dc9c0"]}}&sort={"name": 1}&select={"_id": 0}`)
+        axios.get(`http://localhost:4000/api/recipes`)
             .then(res => {
                 const recipes = res.data.data;
                 console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
@@ -40,7 +44,7 @@ class HomePage extends React.Component<AuthState> {
                             {
                                 this.state.recipes.map(
                                     recipe =>
-                                        <ListGroup.Item><img className="profile-thumb" src={recipe["image"]} alt="recipe" />{recipe["name"]}</ListGroup.Item>
+                                        <ListGroup.Item onClick={() => this.openRecipe(recipe["_id"])}><img className="profile-thumb" src={recipe["image"]} alt="recipe" />{recipe["name"]}</ListGroup.Item>
                                 )
                             }
                             <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Cras justo odio</ListGroup.Item>

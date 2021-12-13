@@ -4,8 +4,18 @@ import k from "./resource/K.png"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import axios from 'axios'
 
 class RecipePage extends React.Component {
+  componentDidMount() {
+    axios.get(`http://localhost:4000/api/recipes`)
+      .then(res => {
+        const recipes = res.data.data;
+        console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
+        this.setState({ recipes });
+      })
+  }
+
   render() {
     return <div className="app vertical">
       <Container>
