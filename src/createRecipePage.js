@@ -34,6 +34,8 @@ class CreateRecipePage extends React.Component {
           instructions: this.state.instructions,
           tags: this.state.tags,
           image: this.state.image
+        }).then(data => {
+          this.setState({ redirect: true });
         })
     } else {
       axios.post(`http://localhost:4000/api/recipes`,
@@ -45,9 +47,11 @@ class CreateRecipePage extends React.Component {
           instructions: this.state.instructions,
           tags: this.state.tags,
           image: this.state.image
-        })
+        }) .then(data => {
+          console.log( 'Request received!', data.data.data._id )
+          this.setState({ redirect: true, id: data.data.data._id });
+      })
     }
-    this.setState({ redirect: true });
   };
 
   render() {
