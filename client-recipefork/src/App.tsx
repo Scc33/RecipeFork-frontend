@@ -14,15 +14,17 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserCredential } from 'firebase/auth';
 import LandingPage from './landingPage';
+import AppNavbar from './navbar';
 
 function App() {
   const [auth, setAuth] = React.useState<UserCredential | null>(null);
   console.log("auth", auth);
   const saved = localStorage.getItem("auth");
   console.log("saved", saved);
-  if (saved) {
+  if (!auth && saved) {
     setAuth(JSON.parse(saved));
   }
+  console.log("loaded", auth)
 
   if (!auth) {
     return (
@@ -39,7 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      <Route path="/recipeFork/" exact component={HomePage} />
+      <AppNavbar setAuth={setAuth} />
       <Route path="/recipeFork/home">
         <HomePage auth={auth} />
       </Route>

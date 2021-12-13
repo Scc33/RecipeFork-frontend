@@ -1,6 +1,5 @@
 import React from 'react';
 import k from "./resource/K.png"
-import AppNavbar from './navbar';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -14,7 +13,6 @@ interface AuthState {
 class HomePage extends React.Component<AuthState> {
     render() {
         return <div className="app">
-            <AppNavbar />
             <Container>
                 <Row>
                     <h3 className="left-align">Welcome {this.props.auth.user.email}</h3>

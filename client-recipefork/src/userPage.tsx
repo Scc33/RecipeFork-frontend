@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card'
-import AppNavbar from './navbar'
 import k from "./resource/K.png"
 import ListGroup from 'react-bootstrap/ListGroup'
 import Container from 'react-bootstrap/Container'
@@ -15,7 +14,6 @@ interface AuthState {
 class UserPage extends React.Component<AuthState> {
     render() {
         return <div className="app vertical">
-            <AppNavbar />
             <Container>
                 <Row>
                     <Col xs={4} md={3}>
