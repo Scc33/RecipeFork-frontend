@@ -32,8 +32,10 @@ class Login extends React.Component<AuthState> {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
+                console.log(JSON.stringify(userCredential));
                 this.setState({ redirect: true });
                 this.props.setAuth(userCredential);
+                localStorage.setItem("auth", JSON.stringify(userCredential));
             })
             .catch((error) => {
                 const errorCode = error.code;
