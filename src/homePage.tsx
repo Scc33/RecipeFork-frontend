@@ -11,7 +11,6 @@ interface AuthState {
     auth: UserCredential;
 }
 
-
 class HomePage extends React.Component<AuthState> {
     state = {
         recipes: []
