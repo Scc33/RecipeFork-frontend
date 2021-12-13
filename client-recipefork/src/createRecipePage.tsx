@@ -8,7 +8,6 @@ class CreateRecipePage extends React.Component {
 
   render() {
     return <div className="app">
-      <AppNavbar />
       <Container>
         <h2 className="center-align">Create Recipe</h2>
         <Form>

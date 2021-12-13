@@ -1,18 +1,21 @@
 import React from 'react';
 import k from "./resource/K.png"
-import AppNavbar from './navbar';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { UserCredential } from '@firebase/auth';
 
-class HomePage extends React.Component {
+interface AuthState {
+    auth: UserCredential;
+}
+
+class HomePage extends React.Component<AuthState> {
     render() {
         return <div className="app">
-            <AppNavbar />
             <Container>
                 <Row>
-                    <h3 className="left-align">Welcome Username</h3>
+                    <h3 className="left-align">Welcome {this.props.auth.user.email}</h3>
                 </Row>
                 <Row>
                     <Col>
