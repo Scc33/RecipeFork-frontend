@@ -25,4 +25,4 @@ pages:
     - public
 
   only:
-    - prep-deploy
+    - main
