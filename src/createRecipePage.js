@@ -1,5 +1,4 @@
 import React from 'react';
-import AppNavbar from './navbar'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -22,11 +21,6 @@ class CreateRecipePage extends React.Component {
   }
 
   onSubmit = () => {
-    console.log("submitting")
-    const options = {
-      headers: { "Content-type": "application/x-www-form-urlencoded","Accept": "text/plain" }
-    };
-
     if (this.state.edit) {
       axios.put(`http://localhost:4000/api/recipes/${this.state.id}`,
         {
