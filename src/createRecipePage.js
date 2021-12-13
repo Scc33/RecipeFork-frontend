@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom';
 
 class CreateRecipePage extends React.Component {
   state = {
@@ -18,6 +19,8 @@ class CreateRecipePage extends React.Component {
     instructions: '',
     tags: [],
     image: '',
+
+    redirect: false,
   }
 
   onSubmit = () => {
@@ -44,6 +47,7 @@ class CreateRecipePage extends React.Component {
           image: this.state.image
         })
     }
+    this.setState({ redirect: true });
   };
 
   render() {
@@ -131,6 +135,7 @@ class CreateRecipePage extends React.Component {
               onClick={this.onSubmit}>
               Publish
             </Button>
+            {this.state.redirect ? (<Redirect push to={"/recipefork-frontend/recipePage?id=" + this.state.id} />) : null}
           </Form>
         </Container>
       </div>;

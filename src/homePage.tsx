@@ -43,14 +43,9 @@ class HomePage extends React.Component<AuthState> {
                             {
                                 this.state.recipes.map(
                                     recipe =>
-                                        <ListGroup.Item onClick={() => this.openRecipe(recipe["_id"])}><img className="profile-thumb" src={recipe["image"]} alt="recipe" />{recipe["name"]}</ListGroup.Item>
+                                        <ListGroup.Item id={recipe["_id"]} onClick={() => this.openRecipe(recipe["_id"])}><img className="profile-thumb" src={recipe["image"]} alt="recipe" />{recipe["name"]}</ListGroup.Item>
                                 )
                             }
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Cras justo odio</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />apibus ac facilisis in</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Morbi leo risus</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Porta ac consectetur ac</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Vestibulum at eros</ListGroup.Item>
                         </ListGroup>
                     </Col>
                     <Col>
