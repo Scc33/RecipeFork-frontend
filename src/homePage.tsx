@@ -19,7 +19,7 @@ class HomePage extends React.Component<AuthState> {
                 </Row>
                 <Row>
                     <h4>Recipes</h4>
-
+                    
                     {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                     <div className="recipe-card">
                         <aside>

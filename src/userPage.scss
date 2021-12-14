@@ -1,0 +1,46 @@
+.user-info {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    padding-right: 5%;
+    padding-left: 5%;
+
+    overflow:hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+
+    .profile-pic {
+        margin: auto;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid gray;
+
+        height: 100%;
+        width: 100%;
+
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        color: rgb(66, 83, 180);
+        font-weight: bold;
+    }
+
+    h5 {
+        color: gray;
+        font-weight: normal;
+    }
+}
+
+.pinned-recipes {
+    padding-bottom: 25px;
+    padding-top: 25px;
+    border-bottom: 2px solid gray;
+}
+
+.contributions {
+    padding-bottom: 25px;
+    padding-top: 25px;
+    border-bottom: 2px solid gray;
+}
