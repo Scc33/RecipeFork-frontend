@@ -11,6 +11,7 @@ class RecipePage extends React.Component {
     id: '',
     recipe: null,
     user_id: '',
+    username: '',
     can_edit: false,
     pinned: false,
   }
@@ -21,10 +22,6 @@ class RecipePage extends React.Component {
 
   openFork(id) {
     window.location.href = "/recipefork-frontend/createRecipePage?id=" + id + "&fork=true";
-  }
-
-  checkPinned() {
-
   }
 
   updatePinned(new_pinned) {
@@ -55,6 +52,30 @@ class RecipePage extends React.Component {
     })
   }
 
+  fork() {
+    console.log("forking")
+    axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`).then(res => {
+      var recipe = res.data.data;
+      const forkedNumber = recipe.fork + 1;
+      axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
+        {
+          _id: recipe._id,
+          forks: forkedNumber,
+        }).then(data => {
+          this.setState({ redirect: true });
+          this.openFork(this.state.id);
+        }).catch(error => {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        })
+    }).catch(error => {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    })
+  }
+
   render() {
     if (this.state.id === '') {
       const saved = localStorage.getItem("auth");
@@ -65,6 +86,7 @@ class RecipePage extends React.Component {
         console.log(res1);
         const user = res1.data.data;
         const user_id = user[0]._id;
+        const username = user[0].username;
         const pinned = user[0].pinnedRecipes;
         console.log("pinned: " + pinned);
 
@@ -78,7 +100,7 @@ class RecipePage extends React.Component {
             if (pinned.includes(url_id)) {
               this.setState({ pinned: true });
             }
-            this.setState({ user_id: user_id, id: url_id, recipe: recipe[0], can_edit: can_id });
+            this.setState({ user_id: user_id, id: url_id, recipe: recipe[0], can_edit: can_id, username: username });
           }).catch(error => {
             console.log(error.response.data);
             console.log(error.response.status);
@@ -100,7 +122,7 @@ class RecipePage extends React.Component {
                 <h3>{this.state.recipe["name"]}</h3>
               </Row>
               <Row>
-                <h5>By Username | Forks</h5>
+                <h5>By {this.state.username} | {this.state.recipe.forks} Forks </h5>
               </Row>
             </Col>
             <Col className="right-align">
@@ -109,7 +131,7 @@ class RecipePage extends React.Component {
                   <Button variant="secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pinned</Button> : <Button variant="outline-secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pin</Button>)
                 : ''
               }
-              <Button className="margin" variant="outline-secondary">Fork</Button>
+              <Button className="margin" variant="outline-secondary" onClick={() => this.fork()}>Fork</Button>
               {this.state.can_edit ? <Button variant="outline-secondary" onClick={() => this.openEdit(this.state.recipe["_id"])}>Edit</Button> : ''}
             </Col>
           </Row>

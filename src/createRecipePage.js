@@ -10,6 +10,7 @@ class CreateRecipePage extends React.Component {
     id: '',
     recipe: {},
     edit: false,
+    fork: false,
     checkEdit: false,
 
     title: '',
@@ -77,12 +78,13 @@ class CreateRecipePage extends React.Component {
       const search = this.props.location.search;
       const url_id = new URLSearchParams(search).get("id");
       const edit = new URLSearchParams(search).get("edit");
-      if (edit) {
+      const fork = new URLSearchParams(search).get("fork");
+      if (edit || fork) {
         axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
           .then(res => {
             const recipe = res.data.data;
             console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
-            this.setState({ id: url_id, recipe: recipe[0], edit: true, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image });
+            this.setState({ id: url_id, recipe: recipe[0], edit: edit, fork: fork, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image });
             console.log("id", url_id, recipe[0])
           })
       } else {
@@ -92,7 +94,7 @@ class CreateRecipePage extends React.Component {
     } else {
       return <div className="app">
         <Container>
-          <h2 className="center-align">Create Recipe</h2>
+          <h2 className="center-align">{this.state.edit ? "Edit" : (this.state.fork) ? "Fork" : "Create"} Recipe</h2>
           <Form>
             <Form.Group className="mb-3" controlId="control1">
               <Form.Label>Title</Form.Label>
