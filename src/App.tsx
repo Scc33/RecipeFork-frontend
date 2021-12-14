@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from "./login"
-import './App.css';
+import './App.scss';
 import CreateAccnt from './createAcct';
 import ResetPassword from './resetPassword';
 import HomePage from "./homePage"
@@ -41,7 +41,9 @@ function App() {
 
   return (
     <div className="App">
-      <AppNavbar setAuth={setAuth} />
+      <nav className="navbar-light bg-dark">
+        <AppNavbar setAuth={setAuth}/>
+      </nav>
       <Route path="/recipefork-frontend/home">
         <HomePage auth={auth} />
       </Route>
