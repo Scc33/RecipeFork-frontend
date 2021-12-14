@@ -32,7 +32,12 @@ class CreateAccnt extends React.Component {
                     username: this.state.username,
                     email: this.state.email,
                     profPic: this.state.profPic,
-                })
+                    pinnedRecipes: [],
+                }).catch(error => {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                  })
         } else {
             this.setState({ match: false });
         }

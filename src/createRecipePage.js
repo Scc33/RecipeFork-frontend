@@ -10,6 +10,7 @@ class CreateRecipePage extends React.Component {
     id: '',
     recipe: {},
     edit: false,
+    fork: false,
     checkEdit: false,
 
     title: '',
@@ -19,52 +20,107 @@ class CreateRecipePage extends React.Component {
     instructions: '',
     tags: [],
     image: '',
+    forkNumber: 0,
+    forkOrigin: '',
 
     redirect: false,
   }
 
   onSubmit = () => {
-    if (this.state.edit) {
-      axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
-        {
-          name: this.state.title,
-          cookTime: this.state.cookTime,
-          prepTime: this.state.prepTime,
-          ingredients: this.state.ingredients,
-          instructions: this.state.instructions,
-          tags: this.state.tags,
-          image: this.state.image
-        }).then(data => {
-          this.setState({ redirect: true });
-        })
-    } else {
-      axios.post(`https://recipefork-backend.herokuapp.com/api/recipes/`,
-        {
-          name: this.state.title,
-          cookTime: this.state.cookTime,
-          prepTime: this.state.prepTime,
-          ingredients: this.state.ingredients,
-          instructions: this.state.instructions,
-          tags: this.state.tags,
-          image: this.state.image
-        }) .then(data => {
-          console.log( 'Request received!', data.data.data._id )
-          this.setState({ redirect: true, id: data.data.data._id });
-      })
-    }
+    const saved = localStorage.getItem("auth");
+    const local_user_data = JSON.parse(saved);
+    const local_user_data_email = local_user_data.user.email;
+    var user_id = '';
+    axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
+      console.log(res)
+      const user = res.data.data;
+      user_id = user[0]._id;
+      if (this.state.edit) {
+        axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
+          {
+            _id: this.state.id,
+            userId: user_id,
+            name: this.state.title,
+            cookTime: this.state.cookTime,
+            prepTime: this.state.prepTime,
+            ingredients: this.state.ingredients,
+            instructions: this.state.instructions,
+            tags: this.state.tags,
+            image: this.state.image,
+            forks: this.state.fork,
+            forkOrigin: this.state.forkOrigin
+          }).then(data => {
+            this.setState({ redirect: true });
+          }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          })
+      } else if (this.state.fork) {
+        axios.post(`https://recipefork-backend.herokuapp.com/api/recipes/`,
+          {
+            userId: user_id,
+            name: this.state.title,
+            cookTime: this.state.cookTime,
+            prepTime: this.state.prepTime,
+            ingredients: this.state.ingredients,
+            instructions: this.state.instructions,
+            tags: this.state.tags,
+            image: this.state.image,
+            forks: 0,
+            forkOrigin: this.state.id
+          }).then(data => {
+            this.setState({ redirect: true, id: data.data.data._id });
+          }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          })
+      } else {
+        axios.post(`https://recipefork-backend.herokuapp.com/api/recipes/`,
+          {
+            userId: user_id,
+            name: this.state.title,
+            cookTime: this.state.cookTime,
+            prepTime: this.state.prepTime,
+            ingredients: this.state.ingredients,
+            instructions: this.state.instructions,
+            tags: this.state.tags,
+            image: this.state.image
+          }).then(data => {
+            this.setState({ redirect: true, id: data.data.data._id });
+          }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          })
+      }
+    })
   };
 
   render() {
     if (!this.state.checkEdit) {
       const search = this.props.location.search;
       const url_id = new URLSearchParams(search).get("id");
-      const edit = new URLSearchParams(search).get("edit");
-      if (edit) {
+      var edit = new URLSearchParams(search).get("edit");
+      var fork = new URLSearchParams(search).get("fork");
+      if (edit || fork) {
         axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
           .then(res => {
             const recipe = res.data.data;
             console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
-            this.setState({ id: url_id, recipe: recipe[0], edit: true, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image });
+            if (edit == null) {
+              edit = false;
+            } else {
+              edit = true;
+            }
+            if (fork == null) {
+              fork = false;
+            } else {
+              fork = true;
+            }
+            console.log(edit, fork);
+            this.setState({ id: url_id, recipe: recipe[0], edit: edit, fork: fork, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image, forkNumber: recipe[0].fork, forkOrigin: recipe[0].forkOrigin });
             console.log("id", url_id, recipe[0])
           })
       } else {
@@ -74,7 +130,7 @@ class CreateRecipePage extends React.Component {
     } else {
       return <div className="app">
         <Container>
-          <h2 className="center-align">Create Recipe</h2>
+          <h2 className="center-align">{this.state.edit ? "Edit" : (this.state.fork) ? "Fork" : "Create"} Recipe</h2>
           <Form>
             <Form.Group className="mb-3" controlId="control1">
               <Form.Label>Title</Form.Label>

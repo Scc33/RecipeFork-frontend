@@ -16,18 +16,55 @@ class UserPage extends React.Component {
         pinnedRecipes: [],
     }
 
+    /*getName(id) {
+        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${id}`).then(res => {
+            console.log("getName", res.data.data.name)
+            return res.data.data.name;
+        })
+    }*/
+
     render() {
         if (this.state.email === '') {
             const saved = localStorage.getItem("auth");
-            const local_user_data = JSON.parse(saved)
-            console.log("mount user page")
-            axios.get(`https://recipefork-backend.herokuapp.com/api/users/Sean2`).then(res => {
-                console.log(res.data)
-                const user = res.data.data;
-                this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: user.recipes, pinnedRecipes: user.pinnedRecipes })
+            const local_user_data = JSON.parse(saved);
+            const local_user_data_email = local_user_data.user.email;
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
+                const user = res.data.data[0];
+                axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
+                    const recipes = res.data.data;
+                    /*for (let i = 0; i < recipes.length; i++) {
+                        if (recipes[i].forkOrigin) {
+                            recipes[i].forkOriginName = this.getName(recipes[i].forkOrigin);
+                        }
+                    }*/
+                    this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes })
+                    var pinnedRecipes = [];
+                    for (let i = 0; i < user.pinnedRecipes.length; i++) {
+                        console.log(i, user.pinnedRecipes[i])
+                        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${user.pinnedRecipes[i]}`).then(res => {
+                            console.log(res.data.data)
+                            pinnedRecipes.push(res.data.data);
+                            this.setState({ pinnedRecipes: pinnedRecipes })
+                        }).catch(error => {
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        })
+                    }
+                    console.log(user.pinnedRecipes, pinnedRecipes)
+                }).catch(error => {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                })
+            }).catch(error => {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
             })
             return <div className="app">Loading...</div>
         } else {
+            console.log(this.state)
             return <div className="app">
                 <Container>
                     <Row>
@@ -39,7 +76,7 @@ class UserPage extends React.Component {
                             <Col>
                                 <h3>{this.state.username}</h3>
                                 <h5>{this.props.auth.user.email}</h5>
-                                <h5>TODO 24 Posted Recipes</h5>
+                                <h5>{this.state.recipes.length} Posted Recipes</h5>
                                 <h5>TODO 69 Forks</h5>
                             </Col>
                         </Col>
@@ -47,57 +84,33 @@ class UserPage extends React.Component {
                             <Row>
                                 <h4>Pinned Recipes</h4>
                             </Row>
-                            TODO: map to pinned recipes
                             <Row>
-                                <Col>
-                                    <a>
-                                        <Card>
-                                            <Card.Body>
-                                                <Card.Img src={k} alt="Pinned recipe" />
-                                                <Card.Title>Mac n Cheese</Card.Title>
-                                                <Card.Text>
-                                                    3h20m
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </a>
-                                </Col>
-                                <Col>
-                                    <a>
-                                        <Card>
-                                            <Card.Body>
-                                                <Card.Img src={k} alt="Pinned recipe" />
-                                                <Card.Title>Mac n Cheese</Card.Title>
-                                                <Card.Text>
-                                                    3h20m
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </a>
-                                </Col>
-                                <Col>
-                                    <a>
-                                        <Card>
-                                            <Card.Body>
-                                                <Card.Img src={k} alt="Pinned recipe" />
-                                                <Card.Title>Mac n Cheese</Card.Title>
-                                                <Card.Text>
-                                                    3h20m
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </a>
-                                </Col>
+                                {this.state.pinnedRecipes.map((recipe) => (
+                                        <Col key={recipe._id}>
+                                            <a>
+                                                <Card>
+                                                    <Card.Body>
+                                                        <Card.Img src={k} alt="Pinned recipe" />
+                                                        <Card.Title>{recipe.name}</Card.Title>
+                                                        <Card.Text>
+                                                            {recipe.forks}
+                                                        </Card.Text>
+                                                    </Card.Body>
+                                                </Card>
+                                            </a>
+                                        </Col>
+                                ))}
                             </Row>
                             <Row>
                                 <h4>All Recipes</h4>
-                                TODO link to all recipes
                                 <ListGroup>
-                                    <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                    <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                                    <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                    {this.state.recipes.map((recipe) => (
+                                        <ListGroup.Item key={recipe._id}>
+                                            <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
+                                            Forks: {recipe.forks} <br/>
+                                            {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
+                                        </ListGroup.Item>
+                                    ))}
                                 </ListGroup>
                             </Row>
                         </Col>
