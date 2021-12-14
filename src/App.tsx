@@ -47,9 +47,7 @@ function App() {
       <Route path="/recipefork-frontend/home">
         <HomePage auth={auth} />
       </Route>
-      <Route path="/recipefork-frontend/userPage">
-        <UserPage auth={auth} />
-      </Route>
+      <Route path="/recipefork-frontend/userPage" exact component={UserPage}/>
       <Route path="/recipefork-frontend/recipePage" exact component={RecipePage} />
       <Route path="/recipefork-frontend/createRecipePage" exact component={CreateRecipePage} />
       <Route path="/recipefork-frontend/settingsPage">

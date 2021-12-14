@@ -24,27 +24,14 @@ class UserPage extends React.Component {
         return countForks
     }
 
-    /*getName(id) {
-        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${id}`).then(res => {
-            console.log("getName", res.data.data.name)
-            return res.data.data.name;
-        })
-    }*/
-
     render() {
         if (this.state.email === '') {
-            const saved = localStorage.getItem("auth");
-            const local_user_data = JSON.parse(saved);
-            const local_user_data_email = local_user_data.user.email;
-            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
-                const user = res.data.data[0];
+            const search = this.props.location.search;
+            const url_id = new URLSearchParams(search).get("id");
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users/${url_id}`).then(res => {
+                const user = res.data.data;
                 axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
                     const recipes = res.data.data;
-                    /*for (let i = 0; i < recipes.length; i++) {
-                        if (recipes[i].forkOrigin) {
-                            recipes[i].forkOriginName = this.getName(recipes[i].forkOrigin);
-                        }
-                    }*/
                     this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes })
                     var pinnedRecipes = [];
                     for (let i = 0; i < user.pinnedRecipes.length; i++) {
@@ -83,7 +70,7 @@ class UserPage extends React.Component {
                             </Row>
                             <Col>
                                 <h3>{this.state.username}</h3>
-                                <h5>{this.props.auth.user.email}</h5>
+                                <h5>{this.state.email}</h5>
                                 <h5>{this.state.recipes.length} Posted Recipes</h5>
                                 <h5>Recipes Forked {this.countForks()} times</h5>
                             </Col>
