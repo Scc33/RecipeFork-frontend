@@ -28,19 +28,19 @@ function App() {
 
   if (!auth) {
     return (
-      <div className="App">
+      <div>
         <Route path="/recipefork-frontend/" exact component={LandingPage} />
         <Route path="/recipefork-frontend/login">
           <Login setAuth={setAuth} />;
         </Route>
         <Route path="/recipefork-frontend/createAccount" exact component={CreateAccnt} />
         <Route path="/recipefork-frontend/forgotPassword" exact component={ResetPassword} />
-      </div >
+      </div>
     );
   }
 
   return (
-    <div className="App">
+    <div>
       <nav className="navbar-light bg-dark">
         <AppNavbar setAuth={setAuth}/>
       </nav>
@@ -55,7 +55,7 @@ function App() {
       <Route path="/recipefork-frontend/settingsPage">
         <Settings auth={auth} />
       </Route>
-    </div >
+    </div>
   );
 }
 
