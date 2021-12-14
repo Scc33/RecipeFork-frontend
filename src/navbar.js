@@ -30,6 +30,7 @@ class AppNavbar extends React.Component {
         if (this.state.personal_id === '') {
             const saved = localStorage.getItem("auth");
             const local_user_data = JSON.parse(saved);
+            console.log("local", local_user_data);
             const local_user_data_email = local_user_data.user.email;
             axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
                 const user = res.data.data[0];
