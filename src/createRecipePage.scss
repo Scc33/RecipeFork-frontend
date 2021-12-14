@@ -1,0 +1,58 @@
+.form {
+    background-color: rgb(228, 229, 255);
+    border-radius: 75px;
+
+    padding-bottom: 75px;
+    padding-top: 75px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    width: 80%;
+    height: auto;
+
+    margin: auto;
+}
+
+.tag {
+    color: white;
+    background-color: rgb(86, 88, 134);
+
+    border: 0px solid;
+    border-radius: 500px;
+    padding: 7px 15px 7px 15px;
+
+    margin-left: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+.tag:hover {opacity: 1}
+
+
+.center-button {
+    display: flex;
+    justify-content: center;
+
+    .submit {
+        background-color: rgb(78, 78, 131);
+        color: white;
+        
+        border: 2px solid rgb(29, 29, 77);
+        border-radius: 200px;
+        box-shadow: 0px 5px rgb(29, 29, 77);
+    
+        padding: 15px 30px 15px 30px;
+        font-size: 24px;
+
+        transition: 0.1s;
+    }
+
+    .submit:hover {
+        cursor: pointer;
+        background-color: rgb(29, 29, 77);
+    }
+}
+

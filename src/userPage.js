@@ -6,6 +6,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from 'axios'
+import './userPage.scss';
+
+var mac = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/macaroni-and-cheese-recipe-1622135326.png?crop=0.786xw:0.901xh;0.0731xw,0.00975xh&resize=640:*"
 
 class UserPage extends React.Component {
     state = {
@@ -64,50 +67,56 @@ class UserPage extends React.Component {
                 <Container>
                     <Row>
                         <Col xs={4} md={3}>
-                            <Row>
-                                TODO link to profile pic
-                                <img className="profile-pic" src={k} />
-                            </Row>
-                            <Col>
-                                <h3>{this.state.username}</h3>
-                                <h5>{this.state.email}</h5>
-                                <h5>{this.state.recipes.length} Posted Recipes</h5>
-                                <h5>Recipes Forked {this.countForks()} times</h5>
-                            </Col>
+                            <div className="user-info">
+                                <Row>
+                                    TODO link to profile pic
+                                    <img className="profile-pic" src={k} />
+                                </Row>
+                                <Col>
+                                    <h3>{this.state.username}</h3>
+                                    <h5>{this.state.email}</h5>
+                                    <h5>{this.state.recipes.length} Posted Recipes</h5>
+                                    <h5>Recipes Forked {this.countForks()} times</h5>
+                                </Col>
+                            </div>
                         </Col>
                         <Col xs={12} md={9}>
-                            <Row>
-                                <h4>Pinned Recipes</h4>
-                            </Row>
-                            <Row>
-                                {this.state.pinnedRecipes.map((recipe) => (
-                                        <Col key={recipe._id}>
-                                            <a>
-                                                <Card>
-                                                    <Card.Body>
-                                                        <Card.Img src={k} alt="Pinned recipe" />
-                                                        <Card.Title>{recipe.name}</Card.Title>
-                                                        <Card.Text>
-                                                            Forks: {recipe.forks}
-                                                        </Card.Text>
-                                                    </Card.Body>
-                                                </Card>
-                                            </a>
-                                        </Col>
-                                ))}
-                            </Row>
-                            <Row>
-                                <h4>All Recipes</h4>
-                                <ListGroup>
-                                    {this.state.recipes.map((recipe) => (
-                                        <ListGroup.Item key={recipe._id}>
-                                            <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
-                                            Forks: {recipe.forks} <br/>
-                                            {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
-                                        </ListGroup.Item>
+                            <div className='pinned-recipes'>
+                                <Row>
+                                    <h4>Pinned Recipes</h4>
+                                </Row>
+                                <Row>
+                                    {this.state.pinnedRecipes.map((recipe) => (
+                                            <Col key={recipe._id}>
+                                                <a>
+                                                    <Card>
+                                                        <Card.Body>
+                                                            <Card.Img src={k} alt="Pinned recipe" />
+                                                            <Card.Title>{recipe.name}</Card.Title>
+                                                            <Card.Text>
+                                                                Forks: {recipe.forks}
+                                                            </Card.Text>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </a>
+                                            </Col>
                                     ))}
-                                </ListGroup>
-                            </Row>
+                                </Row>
+                            </div>
+                            <div className='contributions'>
+                                <Row>
+                                    <h4>All Recipes</h4>
+                                    <ListGroup>
+                                        {this.state.recipes.map((recipe) => (
+                                            <ListGroup.Item key={recipe._id}>
+                                                <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
+                                                Forks: {recipe.forks} <br/>
+                                                {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
+                                            </ListGroup.Item>
+                                        ))}
+                                    </ListGroup>
+                                </Row>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
