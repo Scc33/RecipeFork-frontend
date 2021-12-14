@@ -16,6 +16,14 @@ class UserPage extends React.Component {
         pinnedRecipes: [],
     }
 
+    countForks() {
+        var countForks = 0;
+        for (let i = 0; i < this.state.recipes.length; i++) {
+            countForks += this.state.recipes[i].forks;
+        }
+        return countForks
+    }
+
     /*getName(id) {
         axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${id}`).then(res => {
             console.log("getName", res.data.data.name)
@@ -77,7 +85,7 @@ class UserPage extends React.Component {
                                 <h3>{this.state.username}</h3>
                                 <h5>{this.props.auth.user.email}</h5>
                                 <h5>{this.state.recipes.length} Posted Recipes</h5>
-                                <h5>TODO 69 Forks</h5>
+                                <h5>Recipes Forked {this.countForks()} times</h5>
                             </Col>
                         </Col>
                         <Col xs={12} md={9}>
