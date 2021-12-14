@@ -30,12 +30,12 @@ class UserPage extends React.Component {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
-                  })
+                })
             }).catch(error => {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-              })
+            })
             return <div className="app">Loading...</div>
         } else {
             console.log(this.state)
@@ -58,54 +58,32 @@ class UserPage extends React.Component {
                             <Row>
                                 <h4>Pinned Recipes</h4>
                             </Row>
-                            TODO: map to pinned recipes
                             <Row>
-                                <Col>
-                                    <a>
-                                        <Card>
-                                            <Card.Body>
-                                                <Card.Img src={k} alt="Pinned recipe" />
-                                                <Card.Title>Mac n Cheese</Card.Title>
-                                                <Card.Text>
-                                                    3h20m
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </a>
-                                </Col>
-                                <Col>
-                                    <a>
-                                        <Card>
-                                            <Card.Body>
-                                                <Card.Img src={k} alt="Pinned recipe" />
-                                                <Card.Title>Mac n Cheese</Card.Title>
-                                                <Card.Text>
-                                                    3h20m
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </a>
-                                </Col>
-                                <Col>
-                                    <a>
-                                        <Card>
-                                            <Card.Body>
-                                                <Card.Img src={k} alt="Pinned recipe" />
-                                                <Card.Title>Mac n Cheese</Card.Title>
-                                                <Card.Text>
-                                                    3h20m
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </a>
-                                </Col>
+                                TODO: map to pinned recipes
+                                {this.state.pinnedRecipes.map((recipe) => (
+                                    <ListGroup.Item key={recipe._id}>
+                                        <Col>
+                                            <a>
+                                                <Card>
+                                                    <Card.Body>
+                                                        <Card.Img src={k} alt="Pinned recipe" />
+                                                        <Card.Title>Mac n Cheese</Card.Title>
+                                                        <Card.Text>
+                                                            3h20m
+                                                        </Card.Text>
+                                                    </Card.Body>
+                                                </Card>
+                                            </a>
+                                        </Col>
+                                    </ListGroup.Item>
+                                ))}
                             </Row>
                             <Row>
                                 <h4>All Recipes</h4>
                                 <ListGroup>
                                     {this.state.recipes.map((recipe) => (
                                         <ListGroup.Item key={recipe._id}>
-                                            <h6>{recipe.name}</h6>
+                                            <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
                                             Forks: {recipe.forks}
                                         </ListGroup.Item>
                                     ))}

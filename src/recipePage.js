@@ -10,6 +10,9 @@ class RecipePage extends React.Component {
   state = {
     id: '',
     recipe: null,
+    user_id: '',
+    can_edit: false,
+    pinned: false,
   }
 
   openEdit(id) {
@@ -20,20 +23,75 @@ class RecipePage extends React.Component {
     window.location.href = "/recipefork-frontend/createRecipePage?id=" + id + "&fork=true";
   }
 
+  checkPinned() {
+
+  }
+
+  updatePinned(new_pinned) {
+    console.log(this.state.user_id)
+    var user = null;
+    axios.get(`https://recipefork-backend.herokuapp.com/api/users/${this.state.user_id}`).then(res1 => {
+      user = res1.data.data;
+      var pinned = user.pinnedRecipes;
+      const idx = pinned.indexOf(this.state.id);
+      if (idx === -1) {
+        pinned.push(this.state.id);
+      } else {
+        pinned.splice(idx, 1);
+      }
+      axios.put(`https://recipefork-backend.herokuapp.com/api/users/${this.state.user_id}`, {
+        _id: this.state.user_id,
+        username: user.username,
+        email: user.email,
+        profilePic: user.profilePic,
+        pinnedRecipes: pinned,
+      }).then(res => {
+        this.setState({ pinned: new_pinned });
+      }).catch(error => {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      })
+    })
+  }
+
   render() {
     if (this.state.id === '') {
-      const search = this.props.location.search;
-      const url_id = new URLSearchParams(search).get("id");
-      axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
-        .then(res => {
-          const recipe = res.data.data;
-          console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
-          this.setState({ id: url_id, recipe: recipe[0] });
-          console.log("id", url_id, recipe[0])
-        })
+      const saved = localStorage.getItem("auth");
+      const local_user_data = JSON.parse(saved);
+      const local_user_data_email = local_user_data.user.email;
+      console.log(local_user_data_email);
+      axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res1 => {
+        console.log(res1);
+        const user = res1.data.data;
+        const user_id = user[0]._id;
+        const pinned = user[0].pinnedRecipes;
+        console.log("pinned: " + pinned);
+
+        const search = this.props.location.search;
+        const url_id = new URLSearchParams(search).get("id");
+        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
+          .then(res2 => {
+            console.log(res2)
+            const recipe = res2.data.data;
+            const can_id = (user_id === recipe[0].userId);
+            if (pinned.includes(url_id)) {
+              this.setState({ pinned: true });
+            }
+            this.setState({ user_id: user_id, id: url_id, recipe: recipe[0], can_edit: can_id });
+          }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          })
+      }).catch(error => {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      })
       return <div className="app">Loading...</div>
     } else {
-      console.log("id", this.state.recipe)
+      console.log("id", this.state.recipe, "pinned", this.state.pinned);
       return <div className="app">
         <Container>
           <Row>
@@ -45,9 +103,14 @@ class RecipePage extends React.Component {
                 <h5>By Username | Forks</h5>
               </Row>
             </Col>
-            <Col className="right-align padding">
-              <Button variant="outline-secondary">Fork</Button>{' '}
-              <Button variant="outline-secondary" onClick={() => this.openEdit(this.state.recipe["_id"])}>Edit</Button>{' '}
+            <Col className="right-align">
+              {this.state.can_edit ?
+                (this.state.pinned ?
+                  <Button variant="secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pinned</Button> : <Button variant="outline-secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pin</Button>)
+                : ''
+              }
+              <Button className="margin" variant="outline-secondary">Fork</Button>
+              {this.state.can_edit ? <Button variant="outline-secondary" onClick={() => this.openEdit(this.state.recipe["_id"])}>Edit</Button> : ''}
             </Col>
           </Row>
           <Row>
@@ -62,12 +125,12 @@ class RecipePage extends React.Component {
               <h5>Instructions</h5>
               <p>{this.state.recipe.instructions}</p>
               <Row>
-                <Col className="padding recipes-tags">
-                  <Button variant="primary">Primary</Button>{' '}
-                  <Button variant="secondary">Secondary</Button>{' '}
-                  <Button variant="success">Success</Button>{' '}
-                  <Button variant="warning">Warning</Button>{' '}
-                  <Button variant="danger">Danger</Button> <Button variant="info">Info</Button>{' '}
+                <Col className="recipes-tags">
+                  <Button className="margin" variant="primary">Primary</Button>
+                  <Button className="margin" variant="secondary">Secondary</Button>
+                  <Button className="margin" variant="success">Success</Button>
+                  <Button className="margin" variant="warning">Warning</Button>
+                  <Button className="margin" variant="danger">Danger</Button> <Button variant="info">Info</Button>
                 </Col>
               </Row>
             </Col>
