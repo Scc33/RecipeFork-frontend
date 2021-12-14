@@ -16,6 +16,13 @@ class UserPage extends React.Component {
         pinnedRecipes: [],
     }
 
+    /*getName(id) {
+        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${id}`).then(res => {
+            console.log("getName", res.data.data.name)
+            return res.data.data.name;
+        })
+    }*/
+
     render() {
         if (this.state.email === '') {
             const saved = localStorage.getItem("auth");
@@ -25,6 +32,11 @@ class UserPage extends React.Component {
                 const user = res.data.data[0];
                 axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
                     const recipes = res.data.data;
+                    /*for (let i = 0; i < recipes.length; i++) {
+                        if (recipes[i].forkOrigin) {
+                            recipes[i].forkOriginName = this.getName(recipes[i].forkOrigin);
+                        }
+                    }*/
                     this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes })
                     var pinnedRecipes = [];
                     for (let i = 0; i < user.pinnedRecipes.length; i++) {
@@ -96,7 +108,7 @@ class UserPage extends React.Component {
                                         <ListGroup.Item key={recipe._id}>
                                             <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
                                             Forks: {recipe.forks} <br/>
-                                            {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div>Forked from recipe <a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>{recipe.forkOrigin}</a></div>}
+                                            {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
                                         </ListGroup.Item>
                                     ))}
                                 </ListGroup>
