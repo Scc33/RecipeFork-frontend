@@ -88,7 +88,7 @@ class UserPage extends React.Component {
                                                         <Card.Img src={k} alt="Pinned recipe" />
                                                         <Card.Title>{recipe.name}</Card.Title>
                                                         <Card.Text>
-                                                            {recipe.forks}
+                                                            Forks: {recipe.forks}
                                                         </Card.Text>
                                                     </Card.Body>
                                                 </Card>

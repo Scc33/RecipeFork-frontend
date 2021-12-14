@@ -145,7 +145,7 @@ class RecipePage extends React.Component {
                 <h3>{this.state.recipe["name"]}</h3>
               </Row>
               <Row>
-                <h5>By {this.state.username} | {this.state.recipe.forks} Forks </h5>
+                <h5>By <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username}</a> | {this.state.recipe.forks} Forks </h5>
               </Row>
               <Row>
                 {this.state.recipe["forkOrigin"] === null ? <h5>Original Recipe</h5> : <h5>Forked from recipe <a href={"/recipefork-frontend/recipePage?id=" + this.state.recipe["forkOrigin"]}>{this.state.forkedFrom}</a></h5>}
