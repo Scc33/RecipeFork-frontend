@@ -24,7 +24,7 @@ class RecipePage extends React.Component {
     if (this.state.id === '') {
       const search = this.props.location.search;
       const url_id = new URLSearchParams(search).get("id");
-      axios.get(`http://localhost:4000/api/recipes?where={"_id":"${url_id}"}`)
+      axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
         .then(res => {
           const recipe = res.data.data;
           console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));

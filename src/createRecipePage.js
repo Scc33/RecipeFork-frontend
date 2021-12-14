@@ -25,7 +25,7 @@ class CreateRecipePage extends React.Component {
 
   onSubmit = () => {
     if (this.state.edit) {
-      axios.put(`http://localhost:4000/api/recipes/${this.state.id}`,
+      axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
         {
           name: this.state.title,
           cookTime: this.state.cookTime,
@@ -38,7 +38,7 @@ class CreateRecipePage extends React.Component {
           this.setState({ redirect: true });
         })
     } else {
-      axios.post(`http://localhost:4000/api/recipes`,
+      axios.post(`https://recipefork-backend.herokuapp.com/api/recipes/`,
         {
           name: this.state.title,
           cookTime: this.state.cookTime,
@@ -60,7 +60,7 @@ class CreateRecipePage extends React.Component {
       const url_id = new URLSearchParams(search).get("id");
       const edit = new URLSearchParams(search).get("edit");
       if (edit) {
-        axios.get(`http://localhost:4000/api/recipes?where={"_id":"${url_id}"}`)
+        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
           .then(res => {
             const recipe = res.data.data;
             console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
