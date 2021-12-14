@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="navbar-light bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark" id="navigation">
         <AppNavbar setAuth={setAuth}/>
       </nav>
       <Route path="/recipefork-frontend/home">
