@@ -30,7 +30,6 @@ class Login extends React.Component<AuthState> {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
                 this.setState({ redirect: true });
                 this.props.setAuth(userCredential);
                 localStorage.setItem("auth", JSON.stringify(userCredential));
