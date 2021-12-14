@@ -5,13 +5,32 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { UserCredential } from '@firebase/auth';
+import axios from 'axios';
 
 interface AuthState {
     auth: UserCredential;
 }
 
 class HomePage extends React.Component<AuthState> {
+    state = {
+        recipes: []
+    }
+
+    openRecipe(id: string) {
+        window.location.href = "/recipefork-frontend/recipePage?id=" + id;
+    }
+
+    componentDidMount() {
+        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`)
+            .then(res => {
+                const recipes = res.data.data;
+                console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
+                this.setState({ recipes });
+            })
+    }
+
     render() {
+        console.log("recipes", this.state.recipes)
         return <div className="app">
             <Container>
                 <Row>

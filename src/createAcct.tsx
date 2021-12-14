@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import recipeforkLogo from './resource/recipeFork.png'
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 class CreateAccnt extends React.Component {
     state = {
@@ -14,6 +15,7 @@ class CreateAccnt extends React.Component {
         email: '',
         password: '',
         verifyPassword: '',
+        profPic: '',
         match: true,
         redirect: false,
         tooShort: false,
@@ -25,6 +27,17 @@ class CreateAccnt extends React.Component {
         if (this.state.password === this.state.verifyPassword) {
             this.setState({ match: true });
             this.createAccount(this.state.email, this.state.password);
+            axios.post(`https://recipefork-backend.herokuapp.com/api/users`,
+                {
+                    username: this.state.username,
+                    email: this.state.email,
+                    profPic: this.state.profPic,
+                    pinnedRecipes: [],
+                }).catch(error => {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                  })
         } else {
             this.setState({ match: false });
         }
@@ -108,9 +121,13 @@ class CreateAccnt extends React.Component {
                             onChange={e => this.setState({ verifyPassword: e.target.value })}
                         />
                     </Form.Group>
+                    <Form.Group controlId="formFile" className="mb-3">
+                        <Form.Label>Image</Form.Label>
+                        <Form.Control type="file" />
+                    </Form.Group>
                     <Button
                         onClick={this.onSubmit}>Create account</Button>
-                        { this.state.redirect ? (<Redirect push to="/recipefork-frontend/"/>) : null }
+                    {this.state.redirect ? (<Redirect push to="/recipefork-frontend/" />) : null}
                 </Form>
             </Container>
         </div >;
