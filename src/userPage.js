@@ -25,7 +25,21 @@ class UserPage extends React.Component {
                 const user = res.data.data[0];
                 axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
                     const recipes = res.data.data;
-                    this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes, pinnedRecipes: user.pinnedRecipes })
+                    this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes })
+                    var pinnedRecipes = [];
+                    for (let i = 0; i < user.pinnedRecipes.length; i++) {
+                        console.log(i, user.pinnedRecipes[i])
+                        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${user.pinnedRecipes[i]}`).then(res => {
+                            console.log(res.data.data)
+                            pinnedRecipes.push(res.data.data);
+                            this.setState({ pinnedRecipes: pinnedRecipes })
+                        }).catch(error => {
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        })
+                    }
+                    console.log(user.pinnedRecipes, pinnedRecipes)
                 }).catch(error => {
                     console.log(error.response.data);
                     console.log(error.response.status);
@@ -50,7 +64,7 @@ class UserPage extends React.Component {
                             <Col>
                                 <h3>{this.state.username}</h3>
                                 <h5>{this.props.auth.user.email}</h5>
-                                <h5>TODO 24 Posted Recipes</h5>
+                                <h5>{this.state.recipes.length} Posted Recipes</h5>
                                 <h5>TODO 69 Forks</h5>
                             </Col>
                         </Col>
@@ -59,23 +73,20 @@ class UserPage extends React.Component {
                                 <h4>Pinned Recipes</h4>
                             </Row>
                             <Row>
-                                TODO: map to pinned recipes
                                 {this.state.pinnedRecipes.map((recipe) => (
-                                    <ListGroup.Item key={recipe._id}>
-                                        <Col>
+                                        <Col key={recipe._id}>
                                             <a>
                                                 <Card>
                                                     <Card.Body>
                                                         <Card.Img src={k} alt="Pinned recipe" />
-                                                        <Card.Title>Mac n Cheese</Card.Title>
+                                                        <Card.Title>{recipe.name}</Card.Title>
                                                         <Card.Text>
-                                                            3h20m
+                                                            {recipe.forks}
                                                         </Card.Text>
                                                     </Card.Body>
                                                 </Card>
                                             </a>
                                         </Col>
-                                    </ListGroup.Item>
                                 ))}
                             </Row>
                             <Row>
