@@ -14,6 +14,7 @@ class RecipePage extends React.Component {
     username: '',
     can_edit: false,
     pinned: false,
+    forkedFrom: '',
   }
 
   openEdit(id) {
@@ -56,12 +57,24 @@ class RecipePage extends React.Component {
     console.log("forking")
     axios.get(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`).then(res => {
       var recipe = res.data.data;
-      const forkedNumber = recipe.fork + 1;
+      console.log("forkedNumber", recipe, this.state.id)
+      recipe.forks = recipe.forks + 1;
+      console.log("forkedNumber", recipe, this.state.id)
       axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
         {
           _id: recipe._id,
-          forks: forkedNumber,
+          userId: recipe.userId,
+          name: recipe.name,
+          cookTime: recipe.cookTime,
+          prepTime: recipe.prepTime,
+          ingredients: recipe.ingredients,
+          instructions: recipe.instructions,
+          tags: recipe.tags,
+          image: recipe.image,
+          forks: recipe.forks,
+          forkOrigin: recipe.forkOrigin
         }).then(data => {
+          console.log(data, "forked");
           this.setState({ redirect: true });
           this.openFork(this.state.id);
         }).catch(error => {
@@ -100,6 +113,16 @@ class RecipePage extends React.Component {
             if (pinned.includes(url_id)) {
               this.setState({ pinned: true });
             }
+            if (recipe[0].forkOrigin !== null) {
+              axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${recipe[0].forkOrigin}"}`).then(res3 => {
+                const forkedFrom = res3.data.data;
+                this.setState({ forkedFrom: forkedFrom[0].name });
+              }).catch(error => {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              })
+            }
             this.setState({ user_id: user_id, id: url_id, recipe: recipe[0], can_edit: can_id, username: username });
           }).catch(error => {
             console.log(error.response.data);
@@ -123,6 +146,9 @@ class RecipePage extends React.Component {
               </Row>
               <Row>
                 <h5>By {this.state.username} | {this.state.recipe.forks} Forks </h5>
+              </Row>
+              <Row>
+                {this.state.recipe["forkOrigin"] === null ? <h5>Original Recipe</h5> : <h5>Forked from recipe <a href={"/recipefork-frontend/recipePage?id=" + this.state.recipe["forkOrigin"]}>{this.state.forkedFrom}</a></h5>}
               </Row>
             </Col>
             <Col className="right-align">
