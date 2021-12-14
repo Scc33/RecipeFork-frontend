@@ -19,15 +19,26 @@ class UserPage extends React.Component {
     render() {
         if (this.state.email === '') {
             const saved = localStorage.getItem("auth");
-            const local_user_data = JSON.parse(saved)
-            console.log("mount user page")
-            axios.get(`https://recipefork-backend.herokuapp.com/api/users/Sean2`).then(res => {
-                console.log(res.data)
-                const user = res.data.data;
-                this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: user.recipes, pinnedRecipes: user.pinnedRecipes })
-            })
+            const local_user_data = JSON.parse(saved);
+            const local_user_data_email = local_user_data.user.email;
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
+                const user = res.data.data[0];
+                axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
+                    const recipes = res.data.data;
+                    this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes, pinnedRecipes: user.pinnedRecipes })
+                }).catch(error => {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                  })
+            }).catch(error => {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              })
             return <div className="app">Loading...</div>
         } else {
+            console.log(this.state)
             return <div className="app">
                 <Container>
                     <Row>
@@ -91,13 +102,13 @@ class UserPage extends React.Component {
                             </Row>
                             <Row>
                                 <h4>All Recipes</h4>
-                                TODO link to all recipes
                                 <ListGroup>
-                                    <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                    <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                                    <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                    {this.state.recipes.map((recipe) => (
+                                        <ListGroup.Item key={recipe._id}>
+                                            <h6>{recipe.name}</h6>
+                                            Forks: {recipe.forks}
+                                        </ListGroup.Item>
+                                    ))}
                                 </ListGroup>
                             </Row>
                         </Col>

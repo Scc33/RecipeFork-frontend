@@ -24,34 +24,52 @@ class CreateRecipePage extends React.Component {
   }
 
   onSubmit = () => {
-    if (this.state.edit) {
-      axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
-        {
-          name: this.state.title,
-          cookTime: this.state.cookTime,
-          prepTime: this.state.prepTime,
-          ingredients: this.state.ingredients,
-          instructions: this.state.instructions,
-          tags: this.state.tags,
-          image: this.state.image
-        }).then(data => {
-          this.setState({ redirect: true });
-        })
-    } else {
-      axios.post(`https://recipefork-backend.herokuapp.com/api/recipes/`,
-        {
-          name: this.state.title,
-          cookTime: this.state.cookTime,
-          prepTime: this.state.prepTime,
-          ingredients: this.state.ingredients,
-          instructions: this.state.instructions,
-          tags: this.state.tags,
-          image: this.state.image
-        }) .then(data => {
-          console.log( 'Request received!', data.data.data._id )
-          this.setState({ redirect: true, id: data.data.data._id });
-      })
-    }
+    const saved = localStorage.getItem("auth");
+    const local_user_data = JSON.parse(saved);
+    const local_user_data_email = local_user_data.user.email;
+    var user_id = '';
+    axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
+      console.log(res)
+      const user = res.data.data;
+      user_id = user[0]._id;
+      if (this.state.edit) {
+        axios.put(`https://recipefork-backend.herokuapp.com/api/recipes/${this.state.id}`,
+          {
+            userId: user_id,
+            name: this.state.title,
+            cookTime: this.state.cookTime,
+            prepTime: this.state.prepTime,
+            ingredients: this.state.ingredients,
+            instructions: this.state.instructions,
+            tags: this.state.tags,
+            image: this.state.image
+          }).then(data => {
+            this.setState({ redirect: true });
+          }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          })
+      } else {
+        axios.post(`https://recipefork-backend.herokuapp.com/api/recipes/`,
+          {
+            userId: user_id,
+            name: this.state.title,
+            cookTime: this.state.cookTime,
+            prepTime: this.state.prepTime,
+            ingredients: this.state.ingredients,
+            instructions: this.state.instructions,
+            tags: this.state.tags,
+            image: this.state.image
+          }).then(data => {
+            this.setState({ redirect: true, id: data.data.data._id });
+          }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          })
+      }
+    })
   };
 
   render() {
