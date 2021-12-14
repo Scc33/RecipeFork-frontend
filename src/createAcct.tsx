@@ -27,7 +27,7 @@ class CreateAccnt extends React.Component {
         if (this.state.password === this.state.verifyPassword) {
             this.setState({ match: true });
             this.createAccount(this.state.email, this.state.password);
-            axios.post(`http://localhost:4000/api/users`,
+            axios.post(`https://recipefork-backend.herokuapp.com/api/users`,
                 {
                     username: this.state.username,
                     email: this.state.email,

@@ -21,7 +21,7 @@ class UserPage extends React.Component {
             const saved = localStorage.getItem("auth");
             const local_user_data = JSON.parse(saved)
             console.log("mount user page")
-            axios.get(`https://recipefork-backend.herokuapp.com/api/users/Sean`).then(res => {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users/Sean2`).then(res => {
                 console.log(res.data)
                 const user = res.data.data;
                 this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: user.recipes, pinnedRecipes: user.pinnedRecipes })

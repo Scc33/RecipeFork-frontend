@@ -21,7 +21,7 @@ class HomePage extends React.Component<AuthState> {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/recipes`)
+        axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`)
             .then(res => {
                 const recipes = res.data.data;
                 console.log(typeof (res.data.data), res.data.data, Object.values(res.data.data));
