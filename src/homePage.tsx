@@ -15,27 +15,46 @@ class HomePage extends React.Component<AuthState> {
         return <div className="app">
             <Container>
                 <Row>
-                    <h3 className="left-align">Welcome {this.props.auth.user.email}</h3>
+                    <h2 className="left-align">Howdy, {this.props.auth.user.email} !</h2>
                 </Row>
                 <Row>
-                    <Col>
-                        <h4>Recipes</h4>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Cras justo odio</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />apibus ac facilisis in</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Morbi leo risus</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Porta ac consectetur ac</ListGroup.Item>
-                            <ListGroup.Item action href="#link1"><img className="profile-thumb" src={k} alt="recipe" />Vestibulum at eros</ListGroup.Item>
-                        </ListGroup>
-                    </Col>
-                    <Col>
-                        <h4>Activity</h4>
-                        <ul className="no-bullets">
-                            <li>asdf</li>
-                            <li><img className="profile-thumb" src={k} />asdf</li>
-                            <li><img className="profile-thumb" src={k} />asdf</li>
-                        </ul>
-                    </Col>
+                    <h4>Recipes</h4>
+
+                    {/*source: https://codepen.io/klesht/pen/pjjegK*/}
+                    <div className="recipe-card">
+                        <aside>
+                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
+
+                            <a href="#" className="button"><span className="icon icon-play"></span></a>
+
+                        </aside>
+
+                        <article>
+                            <h2>Chai Oatmeal</h2>
+                        
+                            <ul>
+                                <li><span className="icon icon-users"></span><span>1</span></li>
+                                <li><span className="icon icon-clock"></span><span>15 min</span></li>
+                            </ul>
+
+                            <ul>
+                                <li className='tag'><span>Vegan</span></li>
+                                <li className='tag'><span>Breakfast</span></li>
+                            </ul>
+
+                            <p className="ingredients"><span>Ingredients:&nbsp;</span>Milk, salt, coriander, cardamom, cinnamon, turmeric, honey, vanilla extract, regular oats, oat bran.</p>
+                        </article>
+
+                    </div>
+            
+                    <h4>Activity</h4>
+
+                    <ul className="no-bullets">
+                        <li>asdf</li>
+                        <li><img className="profile-thumb" src={k} />asdf</li>
+                        <li><img className="profile-thumb" src={k} />asdf</li>
+                    </ul>
+                
                 </Row>
             </Container>
         </div>;

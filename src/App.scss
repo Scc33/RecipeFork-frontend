@@ -1,0 +1,212 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1rem;
+}
+
+.profile-thumb {
+  height: 3vmin;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.profile-pic {
+  height: 20vmin;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.recipe-pic {
+  height: 20vmin;
+  width: 20vmin;
+  border-radius: 10%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 35px;
+}
+
+.link {
+  color: #61dafb;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.no-bullets {
+  list-style-type: none;
+  padding: 0; 
+  margin: 0; 
+}
+
+.left-align {
+  text-align: left;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.center-align {
+  text-align: center;
+}
+
+h2 {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+h4 {
+  color: rgb(66, 83, 180);
+  padding-bottom: 10px;
+}
+
+// source: https://codepen.io/klesht/pen/pjjegK?editors=0100
+.recipe-card {
+	background: white;
+	width: 90%;
+  border: 2px solid black;
+  border-radius: 75px;
+
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 0px !important;
+
+	aside {
+		position: relative;
+
+    img {
+      justify-content: center;
+      width: 100%;
+      height: auto;
+      vertical-align: bottom;
+      border-top-left-radius: 75px;
+      border-top-right-radius: 75px;
+    }
+
+		.button {
+			background: #57abf2;
+      
+			display: flex;
+      justify-content: center;
+      align-items: center;
+
+			position: absolute;
+			top: 80%;
+			right: 3%;
+      
+			width: 80px;
+			height: 80px;
+
+			border-radius: 50%;
+		}
+	}
+
+	article {
+		padding: 1.25em 1.5em;
+    padding-bottom: 50px;
+    padding-top: 20px;
+
+		ul {
+			list-style: none;
+			margin: 0.5em 0 0;
+			padding: 0px;
+
+			li {
+				display: inline-block;
+				margin-left: 1em;
+				line-height: 1em;
+
+				&:first-child {
+					margin-left: 0;
+				}
+
+				.icon {
+          vertical-align: bottom;
+				}
+
+				span:nth-of-type(2) {
+					margin-left: 0.5em;
+					font-size: 0.8em;
+					font-weight: 300;
+					vertical-align: bottom;
+					color: #838689;
+				}
+			}
+
+      li.tag {
+        background-color: lightgray;
+        padding: 10px;
+        border-radius: 500px;
+			}
+		}
+
+		h2, h3 {
+			margin: 0;
+			font-weight: 300;
+		}
+
+		h2 {
+      padding-top: 10px !important;
+			font-size: em(28);
+			color: #222222;
+		}
+
+		h3 {
+			font-size: em(15);
+			color: #838689;
+		}
+
+		p {
+			margin: 1.25em 0;
+			font-size: em(13);
+			font-weight: 400;
+			color: #222222;
+
+			span {
+				font-weight: 700;
+				color: #000000;
+			}
+		}
+
+		.ingredients {
+			margin: 2em 0 0.5em;
+		}
+	}
+
+	.icon {
+    display: flex;
+    display: inline-block;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/recipe-card-icons.svg);
+    background-repeat: no-repeat;
+  }
+
+	.icon-clock,.icon-clock\:regular {
+	    background-position: 0 -19px;
+	    width: 20px;
+	    height: 20px;
+	}
+
+	.icon-level,.icon-level\:regular {
+	    background-position: 0 -39px;
+	    width: 16px;
+	    height: 19px;
+	}
+
+	.icon-play,.icon-play\:regular {
+	    background-position: 0 -58px;
+	    width: 21px;
+	    height: 26px;
+	}
+
+	.icon-users,.icon-users\:regular {
+	    background-position: 0 -84px;
+	    width: 18px;
+	    height: 18px;
+	}
+}
