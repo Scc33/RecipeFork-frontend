@@ -74,15 +74,15 @@ class Login extends React.Component<AuthState> {
                     </Form.Group>
                     <Row>
                         <Col className="left-align">
-                            <a className="link" href="/recipefork-frontend/createAccount">Sign up</a>
+                            <a className="link" href="/createAccount">Sign up</a>
                         </Col>
                         <Col className="right-align">
-                            <a className="link" href="/recipefork-frontend/forgotPassword">Forgot password</a>
+                            <a className="link" href="/forgotPassword">Forgot password</a>
                         </Col>
                     </Row>
                     <Row className="mt-3 center-align">
                         <Button onClick={this.onSubmit}>Login</Button>
-                        {this.state.redirect ? (<Redirect push to="/recipefork-frontend/home" />) : null}
+                        {this.state.redirect ? (<Redirect push to="/home" />) : null}
                     </Row>
                 </Form>
             </Container>

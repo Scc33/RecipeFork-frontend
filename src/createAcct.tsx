@@ -127,7 +127,7 @@ class CreateAccnt extends React.Component {
                     </Form.Group>
                     <Button
                         onClick={this.onSubmit}>Create account</Button>
-                    {this.state.redirect ? (<Redirect push to="/recipefork-frontend/" />) : null}
+                    {this.state.redirect ? (<Redirect push to="/" />) : null}
                 </Form>
             </Container>
         </div >;
