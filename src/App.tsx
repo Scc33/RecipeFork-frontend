@@ -34,6 +34,7 @@ function App() {
     return (
       <div>
         <Route exact path="/" render={() => (<Redirect to="/recipefork-frontend/" />)} />
+        <Route exact path="/recipefork-frontend/home" render={() => (<Redirect to="/recipefork-frontend/" />)} />
         <Route path="/recipefork-frontend/" exact component={LandingPage} />
         <Route path="/recipefork-frontend/login">
           <Login setAuth={setAuth} />;
@@ -47,6 +48,7 @@ function App() {
   return (
     <div>
       <Route exact path="/" render={() => (<Redirect to="/recipefork-frontend/home" />)} />
+      <Route exact path="/recipefork-frontend/" render={() => (<Redirect to="/recipefork-frontend/home" />)} />
       <nav className="navbar-dark bg-dark">
         <AppNavbar setAuth={setAuth}/>
       </nav>

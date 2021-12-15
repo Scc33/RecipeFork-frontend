@@ -206,8 +206,6 @@ class CreateRecipePage extends React.Component {
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Image</Form.Label>
                 <Form.Control type="file" onChange={(e) => this.fileUpload(e)} />
-                
-                 {/* <input type="file" onChange={this.fileUpload} /> */}
               </Form.Group>
               <Form.Group controlId="control5" className="mb-3">
               <Form.Label>Tags</Form.Label>
