@@ -73,9 +73,9 @@ class HomePage extends React.Component<AuthState> {
                         <h2 className="left-align">Howdy, {this.props.auth.user.email} !</h2>
                     </Row>
                     <Row>
+                        <h4 className="center-align">Search Recipes or Users</h4>
                         <Form>
                             <Form.Group className="mb-3" controlId="control1">
-                                <Form.Label>Search</Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
@@ -114,6 +114,7 @@ class HomePage extends React.Component<AuthState> {
                             {this.state.isSearching && <div className="center-align">
                                 <h4>Search Results</h4>
                                 <ListGroup>
+                                    {this.state.results.length == 0 && <ListGroup.Item>No results found</ListGroup.Item>}
                                     {this.state.results.map((r: any) => {
                                         return (
                                             <ListGroup.Item key={r._id}>
@@ -125,7 +126,7 @@ class HomePage extends React.Component<AuthState> {
                         </Row>
                     </Row>
                     <Row>
-                        <h4>Random Recipe</h4>
+                        <h4 className="center-align">Random Recipe</h4>
                         {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                         <div className="recipe-card">
                             <aside>
