@@ -50,7 +50,6 @@ class AppNavbar extends React.Component {
                             <NavDropdown title={<img className="profile-thumb" src={k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/recipefork-frontend/home">Home</NavDropdown.Item>
                                 <NavDropdown.Item href={"/recipefork-frontend/userPage?id=" + this.state.personal_id}>Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="/recipefork-frontend/settingsPage">Settings</NavDropdown.Item>
                                 <NavDropdown.Item href="/recipefork-frontend/createRecipePage">New Recipe</NavDropdown.Item>
                                 <NavDropdown.Item onClick={this.logout}>Sign Out</NavDropdown.Item>
                                 {this.state.redirect ? (<Redirect push to="/recipefork-frontend/" />) : null}
@@ -63,5 +62,7 @@ class AppNavbar extends React.Component {
 
     }
 }
+
+//                                <NavDropdown.Item href="/recipefork-frontend/settingsPage">Settings</NavDropdown.Item>
 
 export default AppNavbar
