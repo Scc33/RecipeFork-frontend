@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
 
 ReactDOM.render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter>
     <App />
   </BrowserRouter>,
   document.getElementById('root')

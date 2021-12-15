@@ -47,7 +47,7 @@ class CreateRecipePage extends React.Component {
             instructions: this.state.instructions,
             tags: this.state.tags,
             image: this.state.image,
-            forks: this.state.forkNumber,
+            forks: this.state.fork,
             forkOrigin: this.state.forkOrigin
           }).then(data => {
             this.setState({ redirect: true });
@@ -120,7 +120,7 @@ class CreateRecipePage extends React.Component {
               fork = true;
             }
             console.log(edit, fork);
-            this.setState({ id: url_id, recipe: recipe[0], edit: edit, fork: fork, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image, forkNumber: recipe[0].forks, forkOrigin: recipe[0].forkOrigin });
+            this.setState({ id: url_id, recipe: recipe[0], edit: edit, fork: fork, checkEdit: true, title: recipe[0].name, cookTime: recipe[0].cookTime, prepTime: recipe[0].prepTime, ingredients: recipe[0].ingredients, instructions: recipe[0].instructions, tags: recipe[0].tags, image: recipe[0].image, forkNumber: recipe[0].fork, forkOrigin: recipe[0].forkOrigin });
             console.log("id", url_id, recipe[0])
           })
       } else {
@@ -184,23 +184,23 @@ class CreateRecipePage extends React.Component {
               </Form.Group>
               <Form.Group controlId="control5" className="mb-3">
               <Form.Label>Tags</Form.Label>
-                <button type="button" className="tag">🧇 Breakfast</button>{' '}
-                <button type="button" className="tag">🍬 Sweet</button>{' '}
-                <button type="button"className="tag">🥘 Savory</button>{' '}
-                <button type="button" className="tag">🍹 Drinks</button>{' '}
-                <button type="button" className="tag">🥗 Vegetarian</button>{' '}
-                <button type="button" className="tag">🌱 Vegan</button>{' '}
-                <button type="button" className="tag">🌾 Gluten Free</button>{' '}
-                <button type="button" className="tag">☪️ Halal</button>{' '}
-                <button type="button" className="tag">✡️ Kosher</button>{' '}
+                <button className="tag">🧇 Breakfast</button>{' '}
+                <button className="tag">🍬 Sweet</button>{' '}
+                <button className="tag">🥘 Savory</button>{' '}
+                <button className="tag">🍹 Drinks</button>{' '}
+                <button className="tag">🥗 Vegetarian</button>{' '}
+                <button className="tag">🌱 Vegan</button>{' '}
+                <button className="tag">🌾 Gluten Free</button>{' '}
+                <button className="tag">☪️ Halal</button>{' '}
+                <button className="tag">✡️ Kosher</button>{' '}
               </Form.Group>
               <div className="center-button">
-                <button type="button" className="submit"
+                <button className="submit"
                   onClick={this.onSubmit}>
                   Publish
                 </button>
               </div>
-              {this.state.redirect ? (<Redirect push to={"/recipePage?id=" + this.state.id} />) : null}
+              {this.state.redirect ? (<Redirect push to={"/recipefork-frontend/recipePage?id=" + this.state.id} />) : null}
             </Form>
           </div>
         </Container>

@@ -9,7 +9,7 @@ class LandingPage extends React.Component {
             <Container>
                 <Col className="center-align">
                     <img src={recipeforkLogo} alt="Recipe Fork Logo" />
-                    <h2><a href="/login">Login</a></h2>
+                    <h2><a href="/recipefork-frontend/login">Login</a></h2>
                 </Col>
             </Container>
         </div>;

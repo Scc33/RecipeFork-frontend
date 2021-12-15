@@ -18,11 +18,11 @@ class RecipePage extends React.Component {
   }
 
   openEdit(id) {
-    window.location.href = "/createRecipePage?id=" + id + "&edit=true";
+    window.location.href = "/recipefork-frontend/createRecipePage?id=" + id + "&edit=true";
   }
 
   openFork(id) {
-    window.location.href = "/createRecipePage?id=" + id + "&fork=true";
+    window.location.href = "/recipefork-frontend/createRecipePage?id=" + id + "&fork=true";
   }
 
   updatePinned(new_pinned) {
@@ -145,10 +145,10 @@ class RecipePage extends React.Component {
                 <h3>{this.state.recipe["name"]}</h3>
               </Row>
               <Row>
-                <h5>By <a href={"/userPage?id=" + this.state.user_id}>{this.state.username}</a> | {this.state.recipe.forks} Forks </h5>
+                <h5>By <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username}</a> | {this.state.recipe.forks} Forks </h5>
               </Row>
               <Row>
-                {this.state.recipe["forkOrigin"] === null ? <h5>Original Recipe</h5> : <h5>Forked from recipe <a href={"/recipePage?id=" + this.state.recipe["forkOrigin"]}>{this.state.forkedFrom}</a></h5>}
+                {this.state.recipe["forkOrigin"] === null ? <h5>Original Recipe</h5> : <h5>Forked from recipe <a href={"/recipefork-frontend/recipePage?id=" + this.state.recipe["forkOrigin"]}>{this.state.forkedFrom}</a></h5>}
               </Row>
             </Col>
             <Col className="right-align">

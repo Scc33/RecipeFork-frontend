@@ -1,7 +1,7 @@
 image: node:14.17.6
 
 variables:
-  PUBLIC_URL: "/recipefork"
+  PUBLIC_URL: "/recipefork-frontend"
 
 cache:
   paths:
