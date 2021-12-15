@@ -125,13 +125,15 @@ class RecipePage extends React.Component {
                 console.log(error.response.headers);
               })
             }
+            this.setState({ id: url_id, recipe: recipe[0], can_edit: can_id });
             axios.get(`https://recipefork-backend.herokuapp.com/api/users/${recipe[0].userId}`).then(res4 => {
               const recipeCreator = res4.data.data.username;
-              this.setState({ user_id: recipe[0].userId, id: url_id, recipe: recipe[0], can_edit: can_id, username: recipeCreator });
+              this.setState({ user_id: recipe[0].userId, username: recipeCreator });
             }).catch(error => {
               console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);
+              this.setState({ user_id: null, username: 'deleted user' });
             })
             this.setState({ imageData: await getImageData(recipe[0].image) });
           }).catch(error => {
@@ -155,7 +157,13 @@ class RecipePage extends React.Component {
                 <h3>{this.state.recipe["name"]}</h3>
               </Row>
               <Row>
-                <h5>By <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username}</a> | {this.state.recipe.forks} Forks </h5>
+                <h5>
+                  By {this.state.user_id !== null
+                    ? <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username}</a>
+                    : <>{this.state.username + ' '}</>
+                  }
+                  | {this.state.recipe.forks} Forks
+                </h5>
               </Row>
               <Row>
                 {this.state.recipe["forkOrigin"] === null ? <h5>Original Recipe</h5> : <h5>Forked from recipe <a href={"/recipefork-frontend/recipePage?id=" + this.state.recipe["forkOrigin"]}>{this.state.forkedFrom}</a></h5>}
