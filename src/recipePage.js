@@ -14,6 +14,7 @@ class RecipePage extends React.Component {
     user_id: '',
     username: '',
     can_edit: false,
+    can_fork: false,
     pinned: false,
     forkedFrom: '',
     imageData: ''
@@ -125,7 +126,7 @@ class RecipePage extends React.Component {
                 console.log(error.response.headers);
               })
             }
-            this.setState({ id: url_id, recipe: recipe[0], can_edit: can_id });
+            this.setState({ id: url_id, recipe: recipe[0], can_edit: can_id, can_fork: !can_id });
             axios.get(`https://recipefork-backend.herokuapp.com/api/users/${recipe[0].userId}`).then(res4 => {
               const recipeCreator = res4.data.data.username;
               this.setState({ user_id: recipe[0].userId, username: recipeCreator });
@@ -159,7 +160,7 @@ class RecipePage extends React.Component {
               <Row>
                 <h5>
                   By {this.state.user_id !== null
-                    ? <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username}</a>
+                    ? <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username + ' '}</a>
                     : <>{this.state.username + ' '}</>
                   }
                   | {this.state.recipe.forks} Forks
@@ -173,9 +174,9 @@ class RecipePage extends React.Component {
               {this.state.can_edit ?
                 (this.state.pinned ?
                   <Button variant="secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pinned</Button> : <Button variant="outline-secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pin</Button>)
-                : ''
+                : ' '
               }
-              <Button className="margin" variant="outline-secondary" onClick={() => this.fork()}>Fork</Button>
+              {this.state.can_fork ? <Button className="margin" variant="outline-secondary" onClick={() => this.fork()}>Fork</Button> : ' '}
               {this.state.can_edit ? <Button variant="outline-secondary" onClick={() => this.openEdit(this.state.recipe["_id"])}>Edit</Button> : ''}
             </Col>
           </Row>
