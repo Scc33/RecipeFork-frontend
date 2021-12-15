@@ -18,7 +18,15 @@ class HomePage extends React.Component<AuthState> {
         results: [],
         search: "",
         recipe: true,
-        isSearching: false
+        isSearching: false,
+        randomRecipe: {
+            name: "",
+            id: "",
+            cookTime: "",
+            prepTime: "",
+            ingredients: "",
+            instructions: ""
+        }
     }
 
     openRecipe(id: string) {
@@ -51,94 +59,104 @@ class HomePage extends React.Component<AuthState> {
     }
 
     render() {
-        return <div className="app">
-            <Container>
-                <Row>
-                    <h2 className="left-align">Howdy, {this.props.auth.user.email} !</h2>
-                </Row>
-                <Row>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="control1">
-                            <Form.Label>Search</Form.Label>
-                            <Form.Control
-                                required
-                                type="text"
-                                placeholder="Mac n Cheese"
-                                value={this.state.search}
-                                onChange={e => this.setState({ search: e.target.value })} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="control2">
-                            <Row>
-                                <Col className="center-align">
-                                    <Form.Check
-                                        inline
-                                        defaultChecked
-                                        label="Recipes"
-                                        name="group1"
-                                        type="radio"
-                                        id={`inline-radio-1`}
-                                        onChange={() => this.setState({ recipe: true })}
-                                    />
-                                    <Form.Check
-                                        inline
-                                        label="Users"
-                                        name="group1"
-                                        type="radio"
-                                        id={`inline-radio-2`}
-                                        onChange={() => this.setState({ recipe: false })}
-                                    />
-                                </Col>
-                                <Col className="center-align">
-                                    <Button onClick={() => this.search()}>Search</Button>
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                    </Form>
+        if (this.state.randomRecipe.name === "") {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`).then(res => {
+                const recipes = res.data.data;
+                console.log(recipes[Math.floor(Math.random() * recipes.length)])
+                this.setState({ randomRecipe: recipes[Math.floor(Math.random() * recipes.length)] });
+            })
+            return <div>Loading...</div>
+        } else {
+            return <div className="app">
+                <Container>
                     <Row>
-                        {this.state.isSearching && <div className="center-align">
-                            <h4>Search Results</h4>
-                            <ListGroup>
-                                {this.state.results.map((r: any) => {
-                                    return (
-                                        <ListGroup.Item key={r._id}>
-                                            {this.state.recipe ? <a href={"/recipefork-frontend/recipePage?id=" + r._id}>{r.name}</a> : <a href={"/recipefork-frontend/userPage?id=" + r._id}>{r.username}</a>}
-                                        </ListGroup.Item>)
-                                })}
-                            </ListGroup>
-                        </div>}
+                        <h2 className="left-align">Howdy, {this.props.auth.user.email} !</h2>
                     </Row>
-                </Row>
-                <Row>
-                    <h4>Recipes</h4>
-                    {/*source: https://codepen.io/klesht/pen/pjjegK*/}
-                    <div className="recipe-card">
-                        <aside>
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
+                    <Row>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="control1">
+                                <Form.Label>Search</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    placeholder="Mac n Cheese"
+                                    value={this.state.search}
+                                    onChange={e => this.setState({ search: e.target.value })} />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="control2">
+                                <Row>
+                                    <Col className="center-align">
+                                        <Form.Check
+                                            inline
+                                            defaultChecked
+                                            label="Recipes"
+                                            name="group1"
+                                            type="radio"
+                                            id={`inline-radio-1`}
+                                            onChange={() => this.setState({ recipe: true })}
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Users"
+                                            name="group1"
+                                            type="radio"
+                                            id={`inline-radio-2`}
+                                            onChange={() => this.setState({ recipe: false })}
+                                        />
+                                    </Col>
+                                    <Col className="center-align">
+                                        <Button onClick={() => this.search()}>Search</Button>
+                                    </Col>
+                                </Row>
+                            </Form.Group>
+                        </Form>
+                        <Row>
+                            {this.state.isSearching && <div className="center-align">
+                                <h4>Search Results</h4>
+                                <ListGroup>
+                                    {this.state.results.map((r: any) => {
+                                        return (
+                                            <ListGroup.Item key={r._id}>
+                                                {this.state.recipe ? <a href={"/recipefork-frontend/recipePage?id=" + r._id}>{r.name}</a> : <a href={"/recipefork-frontend/userPage?id=" + r._id}>{r.username}</a>}
+                                            </ListGroup.Item>)
+                                    })}
+                                </ListGroup>
+                            </div>}
+                        </Row>
+                    </Row>
+                    <Row>
+                        <h4>Random Recipe</h4>
+                        {/*source: https://codepen.io/klesht/pen/pjjegK*/}
+                        <div className="recipe-card">
+                            <aside>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
 
-                            <a href="#" className="button"><span className="icon icon-play"></span></a>
+                                <a href="#" className="button"><span className="icon icon-play"></span></a>
 
-                        </aside>
+                            </aside>
 
-                        <article>
-                            <h2>Chai Oatmeal</h2>
+                            <article>
+                                <h2>{this.state.randomRecipe.name}</h2>
 
-                            <ul>
-                                <li><span className="icon icon-users"></span><span>1</span></li>
-                                <li><span className="icon icon-clock"></span><span>15 min</span></li>
-                            </ul>
+                                <ul>
+                                    <li><span className="icon icon-users"></span><span>Cook time: {this.state.randomRecipe.cookTime}</span></li>
+                                    <li><span className="icon icon-clock"></span><span>Prep time: {this.state.randomRecipe.prepTime}</span></li>
+                                </ul>
 
-                            <ul>
-                                <li className='tag'><span>Vegan</span></li>
-                                <li className='tag'><span>Breakfast</span></li>
-                            </ul>
+                                <ul>
+                                    <li className='tag'><span>Vegan</span></li>
+                                    <li className='tag'><span>Breakfast</span></li>
+                                </ul>
 
-                            <p className="ingredients"><span>Ingredients:&nbsp;</span>Milk, salt, coriander, cardamom, cinnamon, turmeric, honey, vanilla extract, regular oats, oat bran.</p>
-                        </article>
+                                <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
+                                <p className="ingredients"><span>Instructions:&nbsp;</span>{this.state.randomRecipe.instructions}</p>
+                            </article>
 
-                    </div>
-                </Row>
-            </Container>
-        </div>;
+                        </div>
+                    </Row>
+                </Container>
+            </div>;
+        }
     }
 }
 
