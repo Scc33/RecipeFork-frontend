@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from 'axios'
+import getImageData from './utilities/image-util';
 import './userPage.scss';
 
 var mac = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/macaroni-and-cheese-recipe-1622135326.png?crop=0.786xw:0.901xh;0.0731xw,0.00975xh&resize=640:*"
@@ -35,7 +36,7 @@ class UserPage extends React.Component {
             axios.get(`https://recipefork-backend.herokuapp.com/api/users/${url_id}`).then(res => {
                 const user = res.data.data;
                 console.log(user);
-                axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
+                axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(async res => {
                     const recipes = res.data.data;
                     this.setState({ email: user.email, username: user.username, profile_pic: user.profilePic, recipes: recipes })
                     var pinnedRecipes = [];
@@ -53,11 +54,7 @@ class UserPage extends React.Component {
                     }
                     console.log(user.pinnedRecipes, pinnedRecipes)
 
-                    if (this.state.profile_pic !== null && this.state.profile_pic !== '') {
-                        axios.get(`https://recipefork-backend.herokuapp.com/api/images/${this.state.profile_pic}`).then(res => {
-                          this.setState({ imageData: res.data.data.base64 });
-                        });
-                    }
+                    this.setState({ imageData: await getImageData(this.state.profile_pic) });
                 }).catch(error => {
                     console.log(error.response.data);
                     console.log(error.response.status);
