@@ -123,7 +123,14 @@ class RecipePage extends React.Component {
                 console.log(error.response.headers);
               })
             }
-            this.setState({ user_id: user_id, id: url_id, recipe: recipe[0], can_edit: can_id, username: username });
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users/${recipe[0].userId}`).then(res4 => {
+              const recipeCreator = res4.data.data.username;
+              this.setState({ user_id: recipe[0].userId, id: url_id, recipe: recipe[0], can_edit: can_id, username: recipeCreator });
+            }).catch(error => {
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            })
           }).catch(error => {
             console.log(error.response.data);
             console.log(error.response.status);
