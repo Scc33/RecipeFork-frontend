@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom';
-import './createRecipePage.scss'
+import './form.scss'
 
 class CreateRecipePage extends React.Component {
   state = {

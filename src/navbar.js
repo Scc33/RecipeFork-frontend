@@ -6,6 +6,7 @@ import k from "./resource/K.png"
 import { getAuth, signOut, UserCredential } from "firebase/auth";
 import { Redirect } from 'react-router-dom';
 import axios from 'axios'
+import "./navbar.css"
 
 class AppNavbar extends React.Component {
     state = {
@@ -42,13 +43,14 @@ class AppNavbar extends React.Component {
         }
         else {
             return <div className="app">
-                <Navbar fixed="top" bg="light">
+                <Navbar fixed="top" bg="dark">
                     <Navbar.Brand href="/recipefork-frontend/home">RecipeFork</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavDropdown title={<img className="profile-thumb" src={k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/recipefork-frontend/home">Home</NavDropdown.Item>
+                                <NavDropdown.Item path="/recipefork-frontend/explore">Explore</NavDropdown.Item>
                                 <NavDropdown.Item href={"/recipefork-frontend/userPage?id=" + this.state.personal_id}>Profile</NavDropdown.Item>
                                 <NavDropdown.Item href="/recipefork-frontend/settingsPage">Settings</NavDropdown.Item>
                                 <NavDropdown.Item href="/recipefork-frontend/createRecipePage">New Recipe</NavDropdown.Item>

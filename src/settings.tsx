@@ -68,8 +68,9 @@ class Settings extends React.Component<AuthState> {
     render() {
         return <div className="app">
             <Container>
+                <h2 className="center-align"> Settings</h2>
+                <div className="form">
                 <Col className="center-align">
-                    <h2>Settings</h2>
                     <h5>Please sign in again to edit settings</h5>
                     {this.state.error && <h5>Incorrect username or password</h5>}
                 </Col>
@@ -96,11 +97,12 @@ class Settings extends React.Component<AuthState> {
                                 onChange={e => this.setState({ password: e.target.value })}
                             />
                         </Form.Group>
-                        <Row className="mt-3 center-align">
-                            <Button onClick={this.onSubmit}>Login</Button>
-                        </Row>
+                        <div className="center-button">
+                            <button className='login' onClick={this.onSubmit}>Login</button>
+                        </div>
                     </Form>
                 }
+                </div>
                 {this.state.redirect ? (<Redirect push to="/recipefork-frontend/home" />) : null}
             </Container>
         </div>;
