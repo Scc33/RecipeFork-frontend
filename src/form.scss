@@ -8,9 +8,11 @@
     padding-right: 40px;
 
     width: 80%;
+    max-width: 1000px;
     height: auto;
-
     margin: auto;
+    justify-content: center;
+    margin-bottom: 50px;
 }
 
 .tag {
@@ -75,3 +77,21 @@
     background-color: rgb(29, 29, 77);
 }
 
+.search {
+    background-color: rgb(78, 78, 131);
+    color: white;
+    
+    border: 2px solid rgb(29, 29, 77);
+    border-radius: 200px;
+    box-shadow: 0px 5px rgb(29, 29, 77);
+
+    padding: 5px 30px 5px 30px;
+    font-size: 20px;
+
+    transition: 0.1s;
+}
+
+.search:hover {
+    cursor: pointer;
+    background-color: rgb(29, 29, 77);
+}
