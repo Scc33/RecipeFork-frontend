@@ -140,6 +140,7 @@ class RecipePage extends React.Component {
             })
             this.setState({ imageData: await getImageData(recipe[0].image) });
           }).catch(error => {
+            console.log(error);
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -196,15 +197,15 @@ class RecipePage extends React.Component {
               <Row>
                 <Col className="recipes-tags">
                   <Form.Group controlId="control5" className="mb-3">
-                    <input type="button" className="tag">🧇 Breakfast</input>{' '}
-                    <input type="button" className="tag">🍬 Sweet</input>{' '}
-                    <input type="button" className="tag">🥘 Savory</input>{' '}
-                    <input type="button" className="tag">🍹 Drinks</input>{' '}
-                    <input type="button" className="tag">🥗 Vegetarian</input>{' '}
-                    <input type="button" className="tag">🌱 Vegan</input>{' '}
-                    <input type="button" className="tag">🌾 Gluten Free</input>{' '}
-                    <input type="button" className="tag">☪️ Halal</input>{' '}
-                    <input type="button" className="tag">✡️ Kosher</input>{' '}
+                    <button type="button" className="tag">🧇 Breakfast</button>{' '}
+                    <button type="button" className="tag">🍬 Sweet</button>{' '}
+                    <button type="button" className="tag">🥘 Savory</button>{' '}
+                    <button type="button" className="tag">🍹 Drinks</button>{' '}
+                    <button type="button" className="tag">🥗 Vegetarian</button>{' '}
+                    <button type="button" className="tag">🌱 Vegan</button>{' '}
+                    <button type="button" className="tag">🌾 Gluten Free</button>{' '}
+                    <button type="button" className="tag">☪️ Halal</button>{' '}
+                    <button type="button" className="tag">✡️ Kosher</button>{' '}
                   </Form.Group>
                 </Col>
               </Row>
