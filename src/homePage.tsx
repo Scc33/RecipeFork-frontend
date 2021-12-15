@@ -24,7 +24,7 @@ class HomePage extends React.Component<AuthState> {
         isSearching: false,
         randomRecipe: {
             name: "",
-            id: "",
+            _id: "",
             cookTime: "",
             prepTime: "",
             ingredients: "",
@@ -72,6 +72,8 @@ class HomePage extends React.Component<AuthState> {
                 const recipes = res.data.data;
                 const selectedRecipe = recipes[Math.floor(Math.random() * recipes.length)];
                 this.setState({ randomRecipe: selectedRecipe });
+                console.log(selectedRecipe);
+                console.log(this.state.randomRecipe);
 
                 this.setState({ imageData: await getImageData(selectedRecipe.image) });
             })
@@ -153,10 +155,9 @@ class HomePage extends React.Component<AuthState> {
                         {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                         <div className="recipe-card">
                             <aside>
-                                <img src={this.state.imageData !== '' ? this.state.imageData : k} alt="Chai Oatmeal" />
+                                <img src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
 
-                                <a href={'#'} className="button"><span className="icon icon-play"></span></a>
-
+                                <a href={`/recipefork-frontend/recipePage?id=${this.state.randomRecipe._id}`} className="button"><span className="icon icon-play"></span></a>
                             </aside>
 
                             <article>
