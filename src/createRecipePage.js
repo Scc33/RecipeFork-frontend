@@ -98,6 +98,31 @@ class CreateRecipePage extends React.Component {
     })
   };
 
+  postImage = (rawData) => {
+    axios.post(`https://recipefork-backend.herokuapp.com/api/images/`,
+      {
+        base64: rawData,
+        format: "png",
+      }).then(data => {
+        this.setState({ image: data.data.data._id });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  fileUpload = (event) => {
+    let postImage = this.postImage;
+    let files = event.target.files;
+    if (files[0].size < 10000000) {
+      var fileReader = new FileReader();
+      fileReader.onload = function(fileLoadedEvent) {
+        postImage(fileLoadedEvent.target.result);
+      }
+      fileReader.readAsDataURL(files[0]);
+    }
+  };
+
   render() {
     if (!this.state.checkEdit) {
       const search = this.props.location.search;
@@ -180,7 +205,9 @@ class CreateRecipePage extends React.Component {
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Image</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control type="file" onChange={(e) => this.fileUpload(e)} />
+                
+                 {/* <input type="file" onChange={this.fileUpload} /> */}
               </Form.Group>
               <Form.Group controlId="control5" className="mb-3">
               <Form.Label>Tags</Form.Label>
