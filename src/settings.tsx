@@ -101,7 +101,7 @@ class Settings extends React.Component<AuthState> {
                         </Row>
                     </Form>
                 }
-                {this.state.redirect ? (<Redirect push to="/recipefork-frontend/home" />) : null}
+                {this.state.redirect ? (<Redirect push to="/home" />) : null}
             </Container>
         </div>;
     }

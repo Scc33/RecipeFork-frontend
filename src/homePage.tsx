@@ -17,7 +17,7 @@ class HomePage extends React.Component<AuthState> {
     }
 
     openRecipe(id: string) {
-        window.location.href = "/recipefork-frontend/recipePage?id=" + id;
+        window.location.href = "/recipePage?id=" + id;
     }
 
     componentDidMount() {

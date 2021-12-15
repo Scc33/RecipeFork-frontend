@@ -109,9 +109,9 @@ class UserPage extends React.Component {
                                     <ListGroup>
                                         {this.state.recipes.map((recipe) => (
                                             <ListGroup.Item key={recipe._id}>
-                                                <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
+                                                <h6><a href={"/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
                                                 Forks: {recipe.forks} <br/>
-                                                {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
+                                                {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
                                             </ListGroup.Item>
                                         ))}
                                     </ListGroup>
