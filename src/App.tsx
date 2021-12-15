@@ -8,13 +8,16 @@ import UserPage from './userPage';
 import RecipePage from './recipePage';
 import CreateRecipePage from './createRecipePage';
 import Settings from './settings';
-import {
-  Route,
-} from "react-router-dom";
+import Explore from './explore';
+import {Route,} from "react-router-dom";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserCredential } from 'firebase/auth';
 import LandingPage from './landingPage';
 import AppNavbar from './navbar';
+
+import "./navbar.css"
+
 
 function App() {
   const [auth, setAuth] = React.useState<UserCredential | null>(null);
@@ -41,13 +44,14 @@ function App() {
 
   return (
     <div>
-      <nav className="navbar-light bg-dark">
+      <nav className="navbar-dark bg-dark">
         <AppNavbar setAuth={setAuth}/>
       </nav>
       <Route path="/recipefork-frontend/home">
         <HomePage auth={auth} />
       </Route>
       <Route path="/recipefork-frontend/userPage" exact component={UserPage}/>
+      <Route path="/recipefork-frontend/explore" exact component={Explore}/>
       <Route path="/recipefork-frontend/recipePage" exact component={RecipePage} />
       <Route path="/recipefork-frontend/createRecipePage" exact component={CreateRecipePage} />
       <Route path="/recipefork-frontend/settingsPage">

@@ -3,7 +3,7 @@
     border-radius: 75px;
 
     padding-bottom: 75px;
-    padding-top: 75px;
+    padding-top: 100px;
     padding-left: 40px;
     padding-right: 40px;
 
@@ -44,8 +44,8 @@
         border-radius: 200px;
         box-shadow: 0px 5px rgb(29, 29, 77);
     
-        padding: 15px 30px 15px 30px;
-        font-size: 24px;
+        padding: 5px 30px 5px 30px;
+        font-size: 20px;
 
         transition: 0.1s;
     }
@@ -54,5 +54,24 @@
         cursor: pointer;
         background-color: rgb(29, 29, 77);
     }
+}
+
+.login {
+    background-color: rgb(78, 78, 131);
+    color: white;
+    
+    border: 2px solid rgb(29, 29, 77);
+    border-radius: 200px;
+    box-shadow: 0px 5px rgb(29, 29, 77);
+
+    padding: 5px 30px 5px 30px;
+    font-size: 20px;
+
+    transition: 0.1s;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: rgb(29, 29, 77);
 }
 
