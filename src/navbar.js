@@ -6,12 +6,14 @@ import k from "./resource/K.png"
 import { getAuth, signOut, UserCredential } from "firebase/auth";
 import { Redirect } from 'react-router-dom';
 import axios from 'axios'
+import getImageData from './utilities/image-util';
 import "./navbar.css"
 
 class AppNavbar extends React.Component {
     state = {
         redirect: false,
         personal_id: '',
+        imageData: ''
     }
 
     logout = () => {
@@ -38,6 +40,10 @@ class AppNavbar extends React.Component {
                 const user = res.data.data[0];
                 console.log(user);
                 this.setState({ personal_id: user._id });
+                axios.get(`https://recipefork-backend.herokuapp.com/api/users/${user._id}`).then(async res => {
+                    const user = res.data.data;
+                    this.setState({ imageData: await getImageData(user.profilePic) });
+                });
             });
             return <div className="app">Loading...</div>
         }
@@ -48,7 +54,7 @@ class AppNavbar extends React.Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <NavDropdown title={<img className="profile-thumb" src={k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
+                            <NavDropdown title={<img className="profile-thumb" src={this.state.imageData !== '' ? this.state.imageData : k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/recipefork-frontend/home">Home</NavDropdown.Item>
                                 <NavDropdown.Item path="/recipefork-frontend/explore">Explore</NavDropdown.Item>
                                 <NavDropdown.Item href={"/recipefork-frontend/userPage?id=" + this.state.personal_id}>Profile</NavDropdown.Item>

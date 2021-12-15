@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from 'axios'
+import getImageData from './utilities/image-util';
 
 class RecipePage extends React.Component {
   state = {
@@ -107,7 +108,7 @@ class RecipePage extends React.Component {
         const search = this.props.location.search;
         const url_id = new URLSearchParams(search).get("id");
         axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
-          .then(res2 => {
+          .then(async res2 => {
             console.log(res2)
             const recipe = res2.data.data;
             const can_id = (user_id === recipe[0].userId);
@@ -132,11 +133,7 @@ class RecipePage extends React.Component {
               console.log(error.response.status);
               console.log(error.response.headers);
             })
-            if (recipe[0].image !== null && recipe[0].image !== '') {
-              axios.get(`https://recipefork-backend.herokuapp.com/api/images/${recipe[0].image}`).then(res => {
-                this.setState({ imageData: res.data.data.base64 });
-              });
-            }
+            this.setState({ imageData: await getImageData(recipe[0].image) });
           }).catch(error => {
             console.log(error.response.data);
             console.log(error.response.status);
