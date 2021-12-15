@@ -37,6 +37,10 @@ class HomePage extends React.Component<AuthState> {
         window.location.href = "/recipefork-frontend/recipePage?id=" + id;
     }
 
+    handleSubmit = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+    };
+
     search() {
         this.setState({ isSearching: true })
         if (this.state.recipe) {
@@ -80,7 +84,7 @@ class HomePage extends React.Component<AuthState> {
                     </Row>
                     <Row>
                         <h4 className="center-align">Search Recipes or Users</h4>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <div className="form">
                                 <Form.Group className="mb-3" controlId="control1">
                                     <Form.Control
