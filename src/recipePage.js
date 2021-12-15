@@ -182,7 +182,6 @@ class RecipePage extends React.Component {
           </Row>
           <Row>
             <Col>
-              {/* <img className="recipe-pic" src={k} /> */}
               <img className="recipe-pic" src={this.state.imageData !== '' ? this.state.imageData : k} />
             </Col>
             <Col className="left-align">
