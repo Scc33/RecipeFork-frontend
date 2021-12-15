@@ -36,7 +36,7 @@ class AppNavbar extends React.Component {
             axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"email":"${local_user_data_email}"}`).then(res => {
                 const user = res.data.data[0];
                 console.log(user);
-                this.setState({ personal_id: user.user_id });
+                this.setState({ personal_id: user._id });
             });
             return <div className="app">Loading...</div>
         }
