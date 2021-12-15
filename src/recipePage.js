@@ -1,10 +1,12 @@
 import React from 'react';
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import k from "./resource/K.png"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from 'axios'
+import './form.scss'
 
 class RecipePage extends React.Component {
   state = {
@@ -188,11 +190,17 @@ class RecipePage extends React.Component {
               <p>{this.state.recipe.instructions}</p>
               <Row>
                 <Col className="recipes-tags">
-                  <Button className="margin" variant="primary">Primary</Button>
-                  <Button className="margin" variant="secondary">Secondary</Button>
-                  <Button className="margin" variant="success">Success</Button>
-                  <Button className="margin" variant="warning">Warning</Button>
-                  <Button className="margin" variant="danger">Danger</Button> <Button variant="info">Info</Button>
+                  <Form.Group controlId="control5" className="mb-3">
+                    <button type="button" className="tag">🧇 Breakfast</button>{' '}
+                    <button type="button" className="tag">🍬 Sweet</button>{' '}
+                    <button type="button" className="tag">🥘 Savory</button>{' '}
+                    <button type="button" className="tag">🍹 Drinks</button>{' '}
+                    <button type="button" className="tag">🥗 Vegetarian</button>{' '}
+                    <button type="button" className="tag">🌱 Vegan</button>{' '}
+                    <button type="button" className="tag">🌾 Gluten Free</button>{' '}
+                    <button type="button" className="tag">☪️ Halal</button>{' '}
+                    <button type="button" className="tag">✡️ Kosher</button>{' '}
+                  </Form.Group>
                 </Col>
               </Row>
             </Col>

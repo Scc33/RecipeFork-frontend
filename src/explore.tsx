@@ -10,6 +10,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './form.scss'
 import './explore.scss'
+import { FormGroup } from 'react-bootstrap';
 
 function Explore() {
     const [loading, setLoading] = React.useState<boolean>(false);
@@ -45,6 +46,17 @@ function Explore() {
                 <input className="Bar" id="field" type="text" placeholder="Search.." onChange={getInputValue}></input>
                 <i className="fas fa-search"></i>
             </div>
+            <Form.Group controlId="control5" className="mb-3">
+                <button type="button" className="tag">🧇 Breakfast</button>{' '}
+                <button type="button" className="tag">🍬 Sweet</button>{' '}
+                <button type="button" className="tag">🥘 Savory</button>{' '}
+                <button type="button" className="tag">🍹 Drinks</button>{' '}
+                <button type="button" className="tag">🥗 Vegetarian</button>{' '}
+                <button type="button" className="tag">🌱 Vegan</button>{' '}
+                <button type="button" className="tag">🌾 Gluten Free</button>{' '}
+                <button type="button" className="tag">☪️ Halal</button>{' '}
+                <button type="button" className="tag">✡️ Kosher</button>{' '}
+            </Form.Group>
         </div>
         <div className="Gallery">
             {recipes.map(recipe => (
