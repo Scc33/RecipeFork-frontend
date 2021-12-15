@@ -78,7 +78,7 @@ h4 {
 .recipe-card {
 	background: white;
 	width: 90%;
-	border: 2px solid black;
+	border: 2px solid rgb(29, 29, 77);
 	border-radius: 75px;
 
 	margin-top: 50px;
@@ -98,11 +98,14 @@ h4 {
     }
 
 		.button {
-			background: #57abf2;
+			background: rgb(78, 78, 131);
+			border: 2px solid rgb(29, 29, 77);
+    		border-radius: 200px;
+    		box-shadow: 0px 5px rgb(29, 29, 77);
       
 			display: flex;
-      justify-content: center;
-      align-items: center;
+      		justify-content: center;
+      		align-items: center;
 
 			position: absolute;
 			top: 80%;
@@ -112,6 +115,11 @@ h4 {
 			height: 80px;
 
 			border-radius: 50%;
+		}
+
+		.button:hover {
+			cursor: pointer;
+			background-color: rgb(29, 29, 77);
 		}
 	}
 
@@ -143,12 +151,12 @@ h4 {
 					font-size: 0.8em;
 					font-weight: 300;
 					vertical-align: bottom;
-					color: #838689;
+					color: rgb(78, 78, 131);
 				}
 			}
 
       li.tag {
-        background-color: lightgray;
+        background-color: rgb(78, 78, 131);
         padding: 10px;
         border-radius: 500px;
 			}

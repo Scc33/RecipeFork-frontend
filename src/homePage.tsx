@@ -9,6 +9,8 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import getImageData from './utilities/image-util';
+import './form.scss'
+import './explore.scss'
 
 interface AuthState {
     auth: UserCredential;
@@ -79,40 +81,53 @@ class HomePage extends React.Component<AuthState> {
                     <Row>
                         <h4 className="center-align">Search Recipes or Users</h4>
                         <Form>
-                            <Form.Group className="mb-3" controlId="control1">
-                                <Form.Control
-                                    required
-                                    type="text"
-                                    placeholder="Mac n Cheese"
-                                    value={this.state.search}
-                                    onChange={e => this.setState({ search: e.target.value })} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="control2">
-                                <Row>
-                                    <Col className="center-align">
-                                        <Form.Check
-                                            inline
-                                            defaultChecked
-                                            label="Recipes"
-                                            name="group1"
-                                            type="radio"
-                                            id={`inline-radio-1`}
-                                            onChange={() => this.setState({ recipe: true })}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Users"
-                                            name="group1"
-                                            type="radio"
-                                            id={`inline-radio-2`}
-                                            onChange={() => this.setState({ recipe: false })}
-                                        />
-                                    </Col>
-                                    <Col className="center-align">
-                                        <Button onClick={() => this.search()}>Search</Button>
-                                    </Col>
-                                </Row>
-                            </Form.Group>
+                            <div className="form">
+                                <Form.Group className="mb-3" controlId="control1">
+                                    <Form.Control
+                                        required
+                                        type="text"
+                                        placeholder="Mac n Cheese"
+                                        value={this.state.search}
+                                        onChange={e => this.setState({ search: e.target.value })} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="control2">
+                                    <Row>
+                                        <Col className="center-align">
+                                            <Form.Check
+                                                inline
+                                                defaultChecked
+                                                label="Recipes"
+                                                name="group1"
+                                                type="radio"
+                                                id={`inline-radio-1`}
+                                                onChange={() => this.setState({ recipe: true })}
+                                            />
+                                            <Form.Check
+                                                inline
+                                                label="Users"
+                                                name="group1"
+                                                type="radio"
+                                                id={`inline-radio-2`}
+                                                onChange={() => this.setState({ recipe: false })}
+                                            />
+                                        </Col>
+                                        <Form.Group controlId="control5" className="mb-3">
+                                            <button type="button" className="tag">🧇 Breakfast</button>{' '}
+                                            <button type="button" className="tag">🍬 Sweet</button>{' '}
+                                            <button type="button" className="tag">🥘 Savory</button>{' '}
+                                            <button type="button" className="tag">🍹 Drinks</button>{' '}
+                                            <button type="button" className="tag">🥗 Vegetarian</button>{' '}
+                                            <button type="button" className="tag">🌱 Vegan</button>{' '}
+                                            <button type="button" className="tag">🌾 Gluten Free</button>{' '}
+                                            <button type="button" className="tag">☪️ Halal</button>{' '}
+                                            <button type="button" className="tag">✡️ Kosher</button>{' '}
+                                        </Form.Group>
+                                        <Col className="center-align">
+                                            <button type="button" className="search" onClick={() => this.search()}>Search</button>
+                                        </Col>
+                                    </Row>
+                                </Form.Group>
+                            </div>
                         </Form>
                         <Row>
                             {this.state.isSearching && <div className="center-align">
@@ -130,13 +145,13 @@ class HomePage extends React.Component<AuthState> {
                         </Row>
                     </Row>
                     <Row>
-                        <h4 className="center-align">Random Recipe</h4>
+                        <h4 className="center-align">Try This Recipe!</h4>
                         {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                         <div className="recipe-card">
                             <aside>
                                 <img src={this.state.imageData !== '' ? this.state.imageData : k} alt="Chai Oatmeal" />
 
-                                <a href="#" className="button"><span className="icon icon-play"></span></a>
+                                <a href={'#'} className="button"><span className="icon icon-play"></span></a>
 
                             </aside>
 
