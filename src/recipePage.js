@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from 'axios'
+import getImageData from './utilities/image-util';
 import './form.scss'
 
 class RecipePage extends React.Component {
@@ -15,6 +16,7 @@ class RecipePage extends React.Component {
     user_id: '',
     username: '',
     can_edit: false,
+    can_fork: false,
     pinned: false,
     forkedFrom: '',
     imageData: ''
@@ -109,7 +111,7 @@ class RecipePage extends React.Component {
         const search = this.props.location.search;
         const url_id = new URLSearchParams(search).get("id");
         axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"_id":"${url_id}"}`)
-          .then(res2 => {
+          .then(async res2 => {
             console.log(res2)
             const recipe = res2.data.data;
             const can_id = (user_id === recipe[0].userId);
@@ -126,19 +128,17 @@ class RecipePage extends React.Component {
                 console.log(error.response.headers);
               })
             }
+            this.setState({ id: url_id, recipe: recipe[0], can_edit: can_id, can_fork: !can_id });
             axios.get(`https://recipefork-backend.herokuapp.com/api/users/${recipe[0].userId}`).then(res4 => {
               const recipeCreator = res4.data.data.username;
-              this.setState({ user_id: recipe[0].userId, id: url_id, recipe: recipe[0], can_edit: can_id, username: recipeCreator });
+              this.setState({ user_id: recipe[0].userId, username: recipeCreator });
             }).catch(error => {
               console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);
+              this.setState({ user_id: null, username: 'deleted user' });
             })
-            if (recipe[0].image !== null && recipe[0].image !== '') {
-              axios.get(`https://recipefork-backend.herokuapp.com/api/images/${recipe[0].image}`).then(res => {
-                this.setState({ imageData: res.data.data.base64 });
-              });
-            }
+            this.setState({ imageData: await getImageData(recipe[0].image) });
           }).catch(error => {
             console.log(error.response.data);
             console.log(error.response.status);
@@ -160,7 +160,13 @@ class RecipePage extends React.Component {
                 <h3>{this.state.recipe["name"]}</h3>
               </Row>
               <Row>
-                <h5>By <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username}</a> | {this.state.recipe.forks} Forks </h5>
+                <h5>
+                  By {this.state.user_id !== null
+                    ? <a href={"/recipefork-frontend/userPage?id=" + this.state.user_id}>{this.state.username + ' '}</a>
+                    : <>{this.state.username + ' '}</>
+                  }
+                  | {this.state.recipe.forks} Forks
+                </h5>
               </Row>
               <Row>
                 {this.state.recipe["forkOrigin"] === null ? <h5>Original Recipe</h5> : <h5>Forked from recipe <a href={"/recipefork-frontend/recipePage?id=" + this.state.recipe["forkOrigin"]}>{this.state.forkedFrom}</a></h5>}
@@ -170,15 +176,14 @@ class RecipePage extends React.Component {
               {this.state.can_edit ?
                 (this.state.pinned ?
                   <Button variant="secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pinned</Button> : <Button variant="outline-secondary" onClick={() => this.updatePinned(!this.state.pinned)}>Pin</Button>)
-                : ''
+                : ' '
               }
-              <Button className="margin" variant="outline-secondary" onClick={() => this.fork()}>Fork</Button>
+              {this.state.can_fork ? <Button className="margin" variant="outline-secondary" onClick={() => this.fork()}>Fork</Button> : ' '}
               {this.state.can_edit ? <Button variant="outline-secondary" onClick={() => this.openEdit(this.state.recipe["_id"])}>Edit</Button> : ''}
             </Col>
           </Row>
           <Row>
             <Col>
-              {/* <img className="recipe-pic" src={k} /> */}
               <img className="recipe-pic" src={this.state.imageData !== '' ? this.state.imageData : k} />
             </Col>
             <Col className="left-align">

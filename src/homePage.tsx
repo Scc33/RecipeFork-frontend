@@ -8,6 +8,7 @@ import { UserCredential } from '@firebase/auth';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import getImageData from './utilities/image-util';
 import './form.scss'
 import './explore.scss'
 
@@ -28,7 +29,8 @@ class HomePage extends React.Component<AuthState> {
             prepTime: "",
             ingredients: "",
             instructions: ""
-        }
+        },
+        imageData: ''
     }
 
     openRecipe(id: string) {
@@ -62,10 +64,12 @@ class HomePage extends React.Component<AuthState> {
 
     render() {
         if (this.state.randomRecipe.name === "") {
-            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`).then(res => {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`).then(async res => {
                 const recipes = res.data.data;
-                console.log(recipes[Math.floor(Math.random() * recipes.length)])
-                this.setState({ randomRecipe: recipes[Math.floor(Math.random() * recipes.length)] });
+                const selectedRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+                this.setState({ randomRecipe: selectedRecipe });
+
+                this.setState({ imageData: await getImageData(selectedRecipe.image) });
             })
             return <div>Loading...</div>
         } else {
@@ -145,7 +149,7 @@ class HomePage extends React.Component<AuthState> {
                         {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                         <div className="recipe-card">
                             <aside>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
+                                <img src={this.state.imageData !== '' ? this.state.imageData : k} alt="Chai Oatmeal" />
 
                                 <a href={'#'} className="button"><span className="icon icon-play"></span></a>
 
