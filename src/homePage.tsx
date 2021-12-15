@@ -159,11 +159,6 @@ class HomePage extends React.Component<AuthState> {
                                     <li><span className="icon icon-clock"></span><span>Prep time: {this.state.randomRecipe.prepTime}</span></li>
                                 </ul>
 
-                                <ul>
-                                    <li className='tag'><span>Vegan</span></li>
-                                    <li className='tag'><span>Breakfast</span></li>
-                                </ul>
-
                                 <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
                                 <p className="ingredients"><span>Instructions:&nbsp;</span>{this.state.randomRecipe.instructions}</p>
                             </article>
