@@ -31,7 +31,7 @@ class CreateAccnt extends React.Component {
                 {
                     username: this.state.username,
                     email: this.state.email,
-                    profPic: this.state.profPic,
+                    profilePic: this.state.profPic,
                     pinnedRecipes: [],
                 }).catch(error => {
                     console.log(error.response.data);
@@ -41,6 +41,32 @@ class CreateAccnt extends React.Component {
         } else {
             this.setState({ match: false });
         }
+    };
+
+    postImage = (rawData: any) => {
+        axios.post(`https://recipefork-backend.herokuapp.com/api/images/`,
+          {
+            base64: rawData,
+            format: "png",
+          }).then(data => {
+            this.setState({ profPic: data.data.data._id });
+            console.log(data.data.data._id);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      };
+    
+    fileUpload = (event: any) => {
+    let postImage = this.postImage;
+    let files = event.target.files;
+    if (files[0].size < 10000000) {
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent: any) {
+        postImage(fileLoadedEvent.target.result);
+        }
+        fileReader.readAsDataURL(files[0]);
+    }
     };
 
     createAccount = (email: string, password: string) => {
@@ -123,7 +149,7 @@ class CreateAccnt extends React.Component {
                     </Form.Group>
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Label>Image</Form.Label>
-                        <Form.Control type="file" />
+                        <Form.Control type="file" onChange={(e) => this.fileUpload(e)} />
                     </Form.Group>
                     <Button
                         onClick={this.onSubmit}>Create account</Button>

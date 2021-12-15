@@ -17,6 +17,7 @@ class UserPage extends React.Component {
         profile_pic: "",
         recipes: [],
         pinnedRecipes: [],
+        imageData: ''
     }
 
     countForks() {
@@ -33,9 +34,10 @@ class UserPage extends React.Component {
             const url_id = new URLSearchParams(search).get("id");
             axios.get(`https://recipefork-backend.herokuapp.com/api/users/${url_id}`).then(res => {
                 const user = res.data.data;
+                console.log(user);
                 axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"userId":"${user._id}"}`).then(res => {
                     const recipes = res.data.data;
-                    this.setState({ email: user.email, username: user.username, profile_pic: user.profile_pic, recipes: recipes })
+                    this.setState({ email: user.email, username: user.username, profile_pic: user.profilePic, recipes: recipes })
                     var pinnedRecipes = [];
                     for (let i = 0; i < user.pinnedRecipes.length; i++) {
                         console.log(i, user.pinnedRecipes[i])
@@ -50,11 +52,19 @@ class UserPage extends React.Component {
                         })
                     }
                     console.log(user.pinnedRecipes, pinnedRecipes)
+
+                    if (this.state.profile_pic !== null && this.state.profile_pic !== '') {
+                        axios.get(`https://recipefork-backend.herokuapp.com/api/images/${this.state.profile_pic}`).then(res => {
+                          this.setState({ imageData: res.data.data.base64 });
+                        });
+                    }
                 }).catch(error => {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
                 })
+
+                
             }).catch(error => {
                 console.log(error.response.data);
                 console.log(error.response.status);
@@ -69,8 +79,7 @@ class UserPage extends React.Component {
                         <Col xs={4} md={3}>
                             <div className="user-info">
                                 <Row>
-                                    TODO link to profile pic
-                                    <img className="profile-pic" src={k} />
+                                    <img className="profile-pic" src={this.state.imageData !== '' ? this.state.imageData : k} />
                                 </Row>
                                 <Col>
                                     <h3>{this.state.username}</h3>

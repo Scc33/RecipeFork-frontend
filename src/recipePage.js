@@ -15,6 +15,7 @@ class RecipePage extends React.Component {
     can_edit: false,
     pinned: false,
     forkedFrom: '',
+    imageData: ''
   }
 
   openEdit(id) {
@@ -131,6 +132,11 @@ class RecipePage extends React.Component {
               console.log(error.response.status);
               console.log(error.response.headers);
             })
+            if (recipe[0].image !== null && recipe[0].image !== '') {
+              axios.get(`https://recipefork-backend.herokuapp.com/api/images/${recipe[0].image}`).then(res => {
+                this.setState({ imageData: res.data.data.base64 });
+              });
+            }
           }).catch(error => {
             console.log(error.response.data);
             console.log(error.response.status);
@@ -170,7 +176,8 @@ class RecipePage extends React.Component {
           </Row>
           <Row>
             <Col>
-              <img className="recipe-pic" src={k} />
+              {/* <img className="recipe-pic" src={k} /> */}
+              <img className="recipe-pic" src={this.state.imageData !== '' ? this.state.imageData : k} />
             </Col>
             <Col className="left-align">
               <h6>Prep time: {this.state.recipe.cookTime}</h6>

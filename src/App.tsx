@@ -9,7 +9,7 @@ import RecipePage from './recipePage';
 import CreateRecipePage from './createRecipePage';
 import Settings from './settings';
 import {
-  Route,
+  Redirect, Route,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserCredential } from 'firebase/auth';
@@ -29,6 +29,7 @@ function App() {
   if (!auth) {
     return (
       <div>
+        <Route exact path="/" render={() => (<Redirect to="/recipefork-frontend/" />)} />
         <Route path="/recipefork-frontend/" exact component={LandingPage} />
         <Route path="/recipefork-frontend/login">
           <Login setAuth={setAuth} />;
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <div>
+      <Route exact path="/" render={() => (<Redirect to="/recipefork-frontend/home" />)} />
       <nav className="navbar-light bg-dark">
         <AppNavbar setAuth={setAuth}/>
       </nav>
