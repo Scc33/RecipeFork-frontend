@@ -206,20 +206,6 @@ class CreateRecipePage extends React.Component {
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Image</Form.Label>
                 <Form.Control type="file" onChange={(e) => this.fileUpload(e)} />
-                
-                 {/* <input type="file" onChange={this.fileUpload} /> */}
-              </Form.Group>
-              <Form.Group controlId="control5" className="mb-3">
-              <Form.Label>Tags</Form.Label>
-                <button type="button" className="tag">🧇 Breakfast</button>{' '}
-                <button type="button" className="tag">🍬 Sweet</button>{' '}
-                <button type="button" className="tag">🥘 Savory</button>{' '}
-                <button type="button" className="tag">🍹 Drinks</button>{' '}
-                <button type="button" className="tag">🥗 Vegetarian</button>{' '}
-                <button type="button" className="tag">🌱 Vegan</button>{' '}
-                <button type="button" className="tag">🌾 Gluten Free</button>{' '}
-                <button type="button" className="tag">☪️ Halal</button>{' '}
-                <button type="button" className="tag">✡️ Kosher</button>{' '}
               </Form.Group>
               <div className="center-button">
                 <button type="button" className="submit"
