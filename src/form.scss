@@ -1,5 +1,9 @@
+$lavender: #E4E5FF;
+$purple1: #565886;
+$purple2: #1d1d4d;
+
 .form {
-    background-color: rgb(228, 229, 255);
+    background-color: lavender;
     border-radius: 75px;
 
     padding-bottom: 75px;
@@ -7,12 +11,23 @@
     padding-left: 40px;
     padding-right: 40px;
 
-    width: 80%;
-    max-width: 1000px;
+    width: 100%;
     height: auto;
     margin: auto;
     justify-content: center;
     margin-bottom: 50px;
+}
+
+.taglabel{
+    color: white;
+    background-color: $purple1;
+
+    border: 0px solid;
+    border-radius: 500px;
+    padding: 7px 15px 7px 15px;
+
+    margin-left: 8px;
+    margin-bottom: 10px;
 }
 
 .tag {
