@@ -43,9 +43,14 @@ class HomePage extends React.Component<AuthState> {
     };
 
     search() {
+        if (this.state.search === '') {
+            this.setState({ isSearching: false });
+            return;
+        }
+
         this.setState({ isSearching: true })
         if (this.state.recipe) {
-            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"name":"${this.state.search}"}`)
+            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"name": { "$regex": "${this.state.search}", "$options": "i" } }`)
                 .then(res => {
                     const recipes = res.data.data;
                     this.setState({ results: recipes });
@@ -55,7 +60,7 @@ class HomePage extends React.Component<AuthState> {
                     console.log(error.response.headers);
                 })
         } else {
-            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"username":"${this.state.search}"}`)
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"username": { "$regex": "${this.state.search}", "$options": "i" } }`)
                 .then(res => {
                     const users = res.data.data;
                     this.setState({ results: users });
@@ -153,30 +158,34 @@ class HomePage extends React.Component<AuthState> {
                             </div>}
                         </Row>
                     </Row>
-                    <Row>
-                        <h4 className="center-align">Try This Recipe!</h4>
-                        {/*source: https://codepen.io/klesht/pen/pjjegK*/}
-                        <div className="recipe-card">
-                            <aside>
-                                <img id="recipe-img" src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
+                    {
+                        this.state.isSearching
+                        ? <></>
+                        : <Row>
+                            <h4 className="center-align">Try This Recipe!</h4>
+                            {/*source: https://codepen.io/klesht/pen/pjjegK*/}
+                            <div className="recipe-card">
+                                <aside>
+                                    <img id="recipe-img" src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
 
-                                <a href={`/recipefork-frontend/recipePage?id=${this.state.randomRecipe._id}`} className="button"><span className="icon icon-play"></span></a>
-                            </aside>
+                                    <a href={`/recipefork-frontend/recipePage?id=${this.state.randomRecipe._id}`} className="button"><span className="icon icon-play"></span></a>
+                                </aside>
 
-                            <article>
-                                <h2>{this.state.randomRecipe.name}</h2>
+                                <article>
+                                    <h2>{this.state.randomRecipe.name}</h2>
 
-                                <ul>
-                                    <li><span className="icon icon-users"></span><span>{this.state.randomRecipe.cookTime}</span></li>
-                                    <li><span className="icon icon-clock"></span><span>{this.state.randomRecipe.prepTime}</span></li>
-                                </ul>
+                                    <ul>
+                                        <li><span className="icon icon-users"></span><span>{this.state.randomRecipe.cookTime}</span></li>
+                                        <li><span className="icon icon-clock"></span><span>{this.state.randomRecipe.prepTime}</span></li>
+                                    </ul>
 
-                                <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
-                                <p className="ingredients"><span>Instructions:&nbsp;</span>{this.state.randomRecipe.instructions}</p>
-                            </article>
+                                    <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
+                                    <p className="ingredients"><span>Instructions:&nbsp;</span>{this.state.randomRecipe.instructions}</p>
+                                </article>
 
-                        </div>
-                    </Row>
+                            </div>
+                        </Row>
+                    }  
                 </Container>
             </div>;
         }
