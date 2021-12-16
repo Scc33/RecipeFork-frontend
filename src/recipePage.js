@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import k from "./resource/K.png"
+import foodtemp from "./resource/foodtemplate.jpg"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -186,7 +187,7 @@ class RecipePage extends React.Component {
           </Row>
           <Row>
             <Col>
-              <img className="recipe-pic" src={this.state.imageData !== '' ? this.state.imageData : k} />
+              <img className="recipe-pic" src={this.state.imageData !== '' ? this.state.imageData : foodtemp} />
             </Col>
             <Col className="left-align">
               <div className="recipecard">

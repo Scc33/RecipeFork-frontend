@@ -1,5 +1,6 @@
 import React from 'react';
 import k from "./resource/K.png"
+import foodtemp from "./resource/foodtemplate.jpg"
 import ListGroup from 'react-bootstrap/ListGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -166,7 +167,7 @@ class HomePage extends React.Component<AuthState> {
                             {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                             <div className="recipe-card">
                                 <aside>
-                                    <img id="recipe-img" src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
+                                    <img id="recipe-img" src={this.state.imageData !== '' ? this.state.imageData : foodtemp} alt={`${this.state.randomRecipe.name}`} />
 
                                     <a href={`/recipefork-frontend/recipePage?id=${this.state.randomRecipe._id}`} className="button"><span className="icon icon-play"></span></a>
                                 </aside>
