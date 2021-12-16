@@ -155,7 +155,7 @@ class HomePage extends React.Component<AuthState> {
                         {/*source: https://codepen.io/klesht/pen/pjjegK*/}
                         <div className="recipe-card">
                             <aside>
-                                <img src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
+                                <img id="recipe-img" src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
 
                                 <a href={`/recipefork-frontend/recipePage?id=${this.state.randomRecipe._id}`} className="button"><span className="icon icon-play"></span></a>
                             </aside>

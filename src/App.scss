@@ -88,8 +88,11 @@ h4 {
 		position: relative;
 
     img {
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
       justify-content: center;
-      width: 100%;
+      width: 20%;
       height: auto;
       vertical-align: bottom;
       border-top-left-radius: 75px;
