@@ -24,23 +24,33 @@ class HomePage extends React.Component<AuthState> {
         isSearching: false,
         randomRecipe: {
             name: "",
-            id: "",
+            _id: "",
             cookTime: "",
             prepTime: "",
             ingredients: "",
             instructions: ""
         },
-        imageData: ''
+        imageData: '',
+        username: ''
     }
 
     openRecipe(id: string) {
         window.location.href = "/recipefork-frontend/recipePage?id=" + id;
     }
 
+    handleSubmit = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+    };
+
     search() {
+        if (this.state.search === '') {
+            this.setState({ isSearching: false });
+            return;
+        }
+
         this.setState({ isSearching: true })
         if (this.state.recipe) {
-            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"name":"${this.state.search}"}`)
+            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes?where={"name": { "$regex": "${this.state.search}", "$options": "i" } }`)
                 .then(res => {
                     const recipes = res.data.data;
                     this.setState({ results: recipes });
@@ -50,7 +60,7 @@ class HomePage extends React.Component<AuthState> {
                     console.log(error.response.headers);
                 })
         } else {
-            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"username":"${this.state.search}"}`)
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users?where={"username": { "$regex": "${this.state.search}", "$options": "i" } }`)
                 .then(res => {
                     const users = res.data.data;
                     this.setState({ results: users });
@@ -68,19 +78,34 @@ class HomePage extends React.Component<AuthState> {
                 const recipes = res.data.data;
                 const selectedRecipe = recipes[Math.floor(Math.random() * recipes.length)];
                 this.setState({ randomRecipe: selectedRecipe });
+                console.log(selectedRecipe);
+                console.log(this.state.randomRecipe);
 
                 this.setState({ imageData: await getImageData(selectedRecipe.image) });
             })
             return <div>Loading...</div>
         } else {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users/?where={"email":"${this.props.auth.user.email}"}`).then(res => {
+                const user = res.data.data[0];
+                if (user === undefined || user === null) {
+                    this.setState({ username: '' });
+                } else {
+                    this.setState({ username: user.username });
+                }
+            })
+
             return <div className="app">
                 <Container>
-                    <Row>
-                        <h2 className="left-align">Howdy, {this.props.auth.user.email} !</h2>
-                    </Row>
+                    { this.state.username === ''
+                        ? <></>
+                        : <Row>
+                            <h2 className="left-align">Howdy, {this.state.username}!</h2>
+                        </Row>
+                    }
+                    
                     <Row>
                         <h4 className="center-align">Search Recipes or Users</h4>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <div className="form">
                                 <Form.Group className="mb-3" controlId="control1">
                                     <Form.Control
@@ -111,17 +136,6 @@ class HomePage extends React.Component<AuthState> {
                                                 onChange={() => this.setState({ recipe: false })}
                                             />
                                         </Col>
-                                        <Form.Group controlId="control5" className="mb-3">
-                                            <button type="button" className="tag">🧇 Breakfast</button>{' '}
-                                            <button type="button" className="tag">🍬 Sweet</button>{' '}
-                                            <button type="button" className="tag">🥘 Savory</button>{' '}
-                                            <button type="button" className="tag">🍹 Drinks</button>{' '}
-                                            <button type="button" className="tag">🥗 Vegetarian</button>{' '}
-                                            <button type="button" className="tag">🌱 Vegan</button>{' '}
-                                            <button type="button" className="tag">🌾 Gluten Free</button>{' '}
-                                            <button type="button" className="tag">☪️ Halal</button>{' '}
-                                            <button type="button" className="tag">✡️ Kosher</button>{' '}
-                                        </Form.Group>
                                         <Col className="center-align">
                                             <button type="button" className="search" onClick={() => this.search()}>Search</button>
                                         </Col>
@@ -144,31 +158,34 @@ class HomePage extends React.Component<AuthState> {
                             </div>}
                         </Row>
                     </Row>
-                    <Row>
-                        <h4 className="center-align">Try This Recipe!</h4>
-                        {/*source: https://codepen.io/klesht/pen/pjjegK*/}
-                        <div className="recipe-card">
-                            <aside>
-                                <img src={this.state.imageData !== '' ? this.state.imageData : k} alt="Chai Oatmeal" />
+                    {
+                        this.state.isSearching
+                        ? <></>
+                        : <Row>
+                            <h4 className="center-align">Try This Recipe!</h4>
+                            {/*source: https://codepen.io/klesht/pen/pjjegK*/}
+                            <div className="recipe-card">
+                                <aside>
+                                    <img id="recipe-img" src={this.state.imageData !== '' ? this.state.imageData : k} alt={`${this.state.randomRecipe.name}`} />
 
-                                <a href={'#'} className="button"><span className="icon icon-play"></span></a>
+                                    <a href={`/recipefork-frontend/recipePage?id=${this.state.randomRecipe._id}`} className="button"><span className="icon icon-play"></span></a>
+                                </aside>
 
-                            </aside>
+                                <article>
+                                    <h2>{this.state.randomRecipe.name}</h2>
 
-                            <article>
-                                <h2>{this.state.randomRecipe.name}</h2>
+                                    <ul>
+                                        <li><span className="icon icon-users"></span><span>{this.state.randomRecipe.cookTime}</span></li>
+                                        <li><span className="icon icon-clock"></span><span>{this.state.randomRecipe.prepTime}</span></li>
+                                    </ul>
 
-                                <ul>
-                                    <li><span className="icon icon-users"></span><span>Cook time: {this.state.randomRecipe.cookTime}</span></li>
-                                    <li><span className="icon icon-clock"></span><span>Prep time: {this.state.randomRecipe.prepTime}</span></li>
-                                </ul>
+                                    <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
+                                    <p className="ingredients"><span>Instructions:&nbsp;</span>{this.state.randomRecipe.instructions}</p>
+                                </article>
 
-                                <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
-                                <p className="ingredients"><span>Instructions:&nbsp;</span>{this.state.randomRecipe.instructions}</p>
-                            </article>
-
-                        </div>
-                    </Row>
+                            </div>
+                        </Row>
+                    }  
                 </Container>
             </div>;
         }

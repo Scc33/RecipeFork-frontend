@@ -12,7 +12,6 @@ body {
 .profile-pic {
   height: 20vmin;
   border-radius: 50%;
-  border: 2px solid black;
 }
 
 .recipe-pic {
@@ -89,8 +88,13 @@ h4 {
 		position: relative;
 
     img {
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
       justify-content: center;
       width: 100%;
+			max-height: 500px;
+			object-fit: fill;
       height: auto;
       vertical-align: bottom;
       border-top-left-radius: 75px;

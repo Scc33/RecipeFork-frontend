@@ -194,21 +194,6 @@ class RecipePage extends React.Component {
               <p>{this.state.recipe.ingredients}</p>
               <h5>Instructions</h5>
               <p>{this.state.recipe.instructions}</p>
-              <Row>
-                <Col className="recipes-tags">
-                  <Form.Group controlId="control5" className="mb-3">
-                    <button type="button" className="tag">🧇 Breakfast</button>{' '}
-                    <button type="button" className="tag">🍬 Sweet</button>{' '}
-                    <button type="button" className="tag">🥘 Savory</button>{' '}
-                    <button type="button" className="tag">🍹 Drinks</button>{' '}
-                    <button type="button" className="tag">🥗 Vegetarian</button>{' '}
-                    <button type="button" className="tag">🌱 Vegan</button>{' '}
-                    <button type="button" className="tag">🌾 Gluten Free</button>{' '}
-                    <button type="button" className="tag">☪️ Halal</button>{' '}
-                    <button type="button" className="tag">✡️ Kosher</button>{' '}
-                  </Form.Group>
-                </Col>
-              </Row>
             </Col>
           </Row>
         </Container>
