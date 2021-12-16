@@ -114,7 +114,7 @@ class CreateRecipePage extends React.Component {
   fileUpload = (event) => {
     let postImage = this.postImage;
     let files = event.target.files;
-    if (files[0].size < 10000000) {
+    if (files[0].size < 15000000) {
       var fileReader = new FileReader();
       fileReader.onload = function(fileLoadedEvent) {
         postImage(fileLoadedEvent.target.result);
@@ -204,7 +204,7 @@ class CreateRecipePage extends React.Component {
                   onChange={e => this.setState({ instructions: e.target.value })} />
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Image</Form.Label>
+                <Form.Label>Image (must be less than 10MB)</Form.Label>
                 <Form.Control type="file" onChange={(e) => this.fileUpload(e)} />
               </Form.Group>
               <div className="center-button">
