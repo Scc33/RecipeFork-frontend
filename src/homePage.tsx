@@ -72,6 +72,31 @@ class HomePage extends React.Component<AuthState> {
         }
     }
 
+    viewAll() {
+        this.setState({ isSearching: true })
+        if (this.state.recipe) {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`)
+                .then(res => {
+                    const recipes = res.data.data;
+                    this.setState({ results: recipes });
+                }).catch(error => {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                })
+        } else {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users`)
+                .then(res => {
+                    const users = res.data.data;
+                    this.setState({ results: users });
+                }).catch(error => {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                })
+        }
+    }
+
     render() {
         if (this.state.randomRecipe.name === "") {
             axios.get(`https://recipefork-backend.herokuapp.com/api/recipes`).then(async res => {
@@ -137,6 +162,8 @@ class HomePage extends React.Component<AuthState> {
                                             />
                                         </Col>
                                         <Col className="center-align">
+                                            <button type="button" className="search" onClick={() => this.viewAll()}>View All</button>
+                                            {' '}
                                             <button type="button" className="search" onClick={() => this.search()}>Search</button>
                                         </Col>
                                     </Row>

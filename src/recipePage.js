@@ -190,8 +190,8 @@ class RecipePage extends React.Component {
             </Col>
             <Col className="left-align">
               <div className="recipecard">
-                <h6>Prep time: {this.state.recipe.cookTime}</h6>
-                <h6>Cook time: {this.state.recipe.prepTime}</h6>
+                <h6>Prep time: {this.state.recipe.prepTime}</h6>
+                <h6>Cook time: {this.state.recipe.cookTime}</h6>
                 <h5>Ingredients</h5>
                 <p>{this.state.recipe.ingredients}</p>
                 <h5>Instructions</h5>

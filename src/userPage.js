@@ -92,21 +92,15 @@ class UserPage extends React.Component {
                                     <h4>Pinned Recipes</h4>
                                 </Row>
                                 <Row>
-                                    {this.state.pinnedRecipes.map((recipe) => (
-                                            <Col key={recipe._id}>
-                                                <a>
-                                                    <Card>
-                                                        <Card.Body>
-                                                            <Card.Img src={k} alt="Pinned recipe" />
-                                                            <Card.Title>{recipe.name}</Card.Title>
-                                                            <Card.Text>
-                                                                Forks: {recipe.forks}
-                                                            </Card.Text>
-                                                        </Card.Body>
-                                                    </Card>
-                                                </a>
-                                            </Col>
-                                    ))}
+                                    <ListGroup>
+                                        {this.state.pinnedRecipes.map((recipe) => (
+                                            <ListGroup.Item key={recipe._id}>
+                                                <h6><a href={"/recipefork-frontend/recipePage?id=" + recipe._id}>{recipe.name}</a></h6>
+                                                Forks: {recipe.forks} <br/>
+                                                {recipe.forkOrigin === null ? <div>Original Recipe</div> : <div><a href={"/recipefork-frontend/recipePage?id=" + recipe.forkOrigin}>Forked Recipe</a></div>}
+                                            </ListGroup.Item>
+                                        ))}
+                                    </ListGroup>
                                 </Row>
                             </div>
                             <div className='contributions'>
