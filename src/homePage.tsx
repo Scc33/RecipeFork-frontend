@@ -30,7 +30,8 @@ class HomePage extends React.Component<AuthState> {
             ingredients: "",
             instructions: ""
         },
-        imageData: ''
+        imageData: '',
+        username: ''
     }
 
     openRecipe(id: string) {
@@ -79,11 +80,24 @@ class HomePage extends React.Component<AuthState> {
             })
             return <div>Loading...</div>
         } else {
+            axios.get(`https://recipefork-backend.herokuapp.com/api/users/?where={"email":"${this.props.auth.user.email}"}`).then(res => {
+                const user = res.data.data[0];
+                if (user === undefined || user === null) {
+                    this.setState({ username: '' });
+                } else {
+                    this.setState({ username: user.username });
+                }
+            })
+
             return <div className="app">
                 <Container>
-                    <Row>
-                        <h2 className="left-align">Howdy, {this.props.auth.user.email} !</h2>
-                    </Row>
+                    { this.state.username === ''
+                        ? <></>
+                        : <Row>
+                            <h2 className="left-align">Howdy, {this.state.username}!</h2>
+                        </Row>
+                    }
+                    
                     <Row>
                         <h4 className="center-align">Search Recipes or Users</h4>
                         <Form onSubmit={this.handleSubmit}>
@@ -117,17 +131,6 @@ class HomePage extends React.Component<AuthState> {
                                                 onChange={() => this.setState({ recipe: false })}
                                             />
                                         </Col>
-                                        <Form.Group controlId="control5" className="mb-3">
-                                            <button type="button" className="tag">🧇 Breakfast</button>{' '}
-                                            <button type="button" className="tag">🍬 Sweet</button>{' '}
-                                            <button type="button" className="tag">🥘 Savory</button>{' '}
-                                            <button type="button" className="tag">🍹 Drinks</button>{' '}
-                                            <button type="button" className="tag">🥗 Vegetarian</button>{' '}
-                                            <button type="button" className="tag">🌱 Vegan</button>{' '}
-                                            <button type="button" className="tag">🌾 Gluten Free</button>{' '}
-                                            <button type="button" className="tag">☪️ Halal</button>{' '}
-                                            <button type="button" className="tag">✡️ Kosher</button>{' '}
-                                        </Form.Group>
                                         <Col className="center-align">
                                             <button type="button" className="search" onClick={() => this.search()}>Search</button>
                                         </Col>
@@ -164,13 +167,8 @@ class HomePage extends React.Component<AuthState> {
                                 <h2>{this.state.randomRecipe.name}</h2>
 
                                 <ul>
-                                    <li><span className="icon icon-users"></span><span>Cook time: {this.state.randomRecipe.cookTime}</span></li>
-                                    <li><span className="icon icon-clock"></span><span>Prep time: {this.state.randomRecipe.prepTime}</span></li>
-                                </ul>
-
-                                <ul>
-                                    <li className='tag'><span>Vegan</span></li>
-                                    <li className='tag'><span>Breakfast</span></li>
+                                    <li><span className="icon icon-users"></span><span>{this.state.randomRecipe.cookTime}</span></li>
+                                    <li><span className="icon icon-clock"></span><span>{this.state.randomRecipe.prepTime}</span></li>
                                 </ul>
 
                                 <p className="ingredients"><span>Ingredients:&nbsp;</span>{this.state.randomRecipe.ingredients}</p>
