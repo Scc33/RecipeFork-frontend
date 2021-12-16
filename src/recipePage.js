@@ -140,6 +140,7 @@ class RecipePage extends React.Component {
             })
             this.setState({ imageData: await getImageData(recipe[0].image) });
           }).catch(error => {
+            console.log(error);
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
