@@ -60,7 +60,7 @@ class CreateAccnt extends React.Component {
     fileUpload = (event: any) => {
     let postImage = this.postImage;
     let files = event.target.files;
-    if (files[0].size < 10000000) {
+    if (files[0].size < 15000000) {
         var fileReader = new FileReader();
         fileReader.onload = function(fileLoadedEvent: any) {
         postImage(fileLoadedEvent.target.result);
@@ -148,8 +148,8 @@ class CreateAccnt extends React.Component {
                         />
                     </Form.Group>
                     <Form.Group controlId="formFile" className="mb-3">
-                        <Form.Label>Image</Form.Label>
-                        <Form.Control type="file" onChange={(e) => this.fileUpload(e)} />
+                        <Form.Label>Image (must be less than 10MB)</Form.Label>
+                        <Form.Control type="file" accept=".png,.jpeg,.jpg" onChange={(e) => this.fileUpload(e)} />
                     </Form.Group>
                     <Button
                         onClick={this.onSubmit}>Create account</Button>
