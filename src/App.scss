@@ -1,3 +1,7 @@
+$lavender: #E4E5FF;
+$purple1: #565886;
+$purple2: #1d1d4d;
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 1rem;
@@ -30,7 +34,7 @@ body {
 }
 
 .link {
-  color: #61dafb;
+  color: $purple2;
 }
 
 .padding {
@@ -123,7 +127,7 @@ h4 {
 
 		.button:hover {
 			cursor: pointer;
-			background-color: rgb(29, 29, 77);
+			background-color: $purple2;
 		}
 	}
 
@@ -155,12 +159,12 @@ h4 {
 					font-size: 0.8em;
 					font-weight: 300;
 					vertical-align: bottom;
-					color: rgb(78, 78, 131);
+					color: $purple1;
 				}
 			}
 
       li.tag {
-        background-color: rgb(78, 78, 131);
+        background-color: $purple1;
         padding: 10px;
         border-radius: 500px;
 			}

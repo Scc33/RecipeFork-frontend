@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import axios from 'axios'
 import getImageData from './utilities/image-util';
 import './form.scss'
+import './recipePage.scss'
 
 class RecipePage extends React.Component {
   state = {
@@ -188,12 +189,14 @@ class RecipePage extends React.Component {
               <img className="recipe-pic" src={this.state.imageData !== '' ? this.state.imageData : k} />
             </Col>
             <Col className="left-align">
-              <h6>Prep time: {this.state.recipe.cookTime}</h6>
-              <h6>Cook time: {this.state.recipe.prepTime}</h6>
-              <h5>Ingredients</h5>
-              <p>{this.state.recipe.ingredients}</p>
-              <h5>Instructions</h5>
-              <p>{this.state.recipe.instructions}</p>
+              <div className="recipecard">
+                <h6>Prep time: {this.state.recipe.cookTime}</h6>
+                <h6>Cook time: {this.state.recipe.prepTime}</h6>
+                <h5>Ingredients</h5>
+                <p>{this.state.recipe.ingredients}</p>
+                <h5>Instructions</h5>
+                <p>{this.state.recipe.instructions}</p>
+              </div>
             </Col>
           </Row>
         </Container>

@@ -56,7 +56,7 @@ class AppNavbar extends React.Component {
                         <Nav className="me-auto">
                             <NavDropdown title={<img className="profile-thumb" src={this.state.imageData !== '' ? this.state.imageData : k} alt="Recipe Fork Banner" />} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/recipefork-frontend/home">Home</NavDropdown.Item>
-                                <NavDropdown.Item path="/recipefork-frontend/explore">Explore</NavDropdown.Item>
+                                {/* <NavDropdown.Item href="/recipefork-frontend/explore">Explore</NavDropdown.Item> */}
                                 <NavDropdown.Item href={"/recipefork-frontend/userPage?id=" + this.state.personal_id}>Profile</NavDropdown.Item>
                                 <NavDropdown.Item href="/recipefork-frontend/createRecipePage">New Recipe</NavDropdown.Item>
                                 <NavDropdown.Item onClick={this.logout}>Sign Out</NavDropdown.Item>

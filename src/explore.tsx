@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.scss';
+import k from "./resource/K.png";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -62,6 +63,7 @@ function Explore() {
             {recipes.map(recipe => (
                     <div className='Tile'>
                         <p>{recipe.name}</p>
+                        <img src={recipe.imageData !== '' ? recipe.imageData : k}/>
                     </div>
                 ))}
         </div>
