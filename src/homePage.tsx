@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/Col'
 import { UserCredential } from '@firebase/auth';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import getImageData from './utilities/image-util';
 import './form.scss'
 import './explore.scss'
@@ -147,7 +146,7 @@ class HomePage extends React.Component<AuthState> {
                             {this.state.isSearching && <div className="center-align">
                                 <h4>Search Results</h4>
                                 <ListGroup>
-                                    {this.state.results.length == 0 && <ListGroup.Item>No results found</ListGroup.Item>}
+                                    {this.state.results.length === 0 && <ListGroup.Item>No results found</ListGroup.Item>}
                                     {this.state.results.map((r: any) => {
                                         return (
                                             <ListGroup.Item key={r._id}>

@@ -11,7 +11,6 @@ import Settings from './settings';
 import {
   Redirect, Route,
 } from "react-router-dom";
-import Explore from './explore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserCredential } from 'firebase/auth';
 import LandingPage from './landingPage';
