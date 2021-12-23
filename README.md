@@ -4,4 +4,4 @@ Frontend repository for Recipe Fork, a website for creating, sharing and forking
 
 The project can be found at the following link: https://seanmc4.gitlab.io/recipefork-frontend/ (experience is best in Firefox).
 
-The backend repository can be found here: https://gitlab.com/chbkull/recipefork.
+The backend repository can be found [here](https://github.com/Scc33/RecipeFork-backend). Originally located [here](https://gitlab.com/chbkull/recipefork).
